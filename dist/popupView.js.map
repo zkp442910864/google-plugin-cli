@@ -1,0 +1,1 @@
+{"version":3,"file":"popupView.js","sources":["../src/popupView/main.ts"],"sourcesContent":["import { createApp } from 'vue';\nimport App from './App.vue';\n\ncreateApp(App).mount('#app');\n"],"names":["App"],"mappings":";;;;;;;;;;;;;;;;;;;AAGA,UAAUA,WAAK,MAAM;"}

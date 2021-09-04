@@ -1,0 +1,1 @@
+{"version":3,"file":"tagView.js","sources":["../src/tagView/main.ts"],"sourcesContent":["import { createApp } from 'vue'\nimport App from './App.vue'\n\nconsole.log(123123);\n\ncreateApp(App).mount('#app')\n"],"names":["App"],"mappings":";;;;;;;;;;;;;;;;;;;AAGA,QAAQ,IAAI;AAEZ,UAAUA,WAAK,MAAM;"}

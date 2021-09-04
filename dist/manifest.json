@@ -1,0 +1,31 @@
+{
+    "name": "googlePlugin",
+    "description": "测试脚手架",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "serviceWoker.js"
+    },
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting",
+        "contextMenus"
+    ],
+    "omnibox": {
+        "keyword": "nt"
+    },
+    "chrome_url_overrides": {
+        "newtab": "tagView.html"
+    },
+    "action": {
+        "default_popup": "popupView.html"
+    },
+    "icons": {
+        "16": "test-16.png",
+        "32": "test-32.png",
+        "48": "test-48.png",
+        "64": "test-64.png"
+    },
+    "options_page": "tagView.html"
+}

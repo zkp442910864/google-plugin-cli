@@ -1,0 +1,1 @@
+{"version":3,"file":"serviceWoker.js","sources":["../src/utils/index.ts","../src/serviceWoker/index.ts"],"sourcesContent":["export const test = () => {\r\n    console.log('123');\r\n};","import {test} from '@/utils';\n\ntest();\nconsole.log('123122');\n\n"],"names":[],"mappings":"MAAa,OAAO,MAAM;UACd,IAAI;AAAA;ACChB;AACA,QAAQ,IAAI;"}
