@@ -21,5 +21,5 @@ export default function (fileUrl) {
                 source: JSON.stringify(jsonData, null, 4)
             });
         }
-    }
+    };
 }
