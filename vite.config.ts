@@ -1,6 +1,7 @@
 import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
+import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
 // import fs from 'fs';
 import virtualHtml from './config/plugins/vite-plugin-virtual-html';
 import jsToJson from './config/plugins/vite-plugins-js-to-json';
@@ -31,10 +32,13 @@ export default defineConfig((evn) => {
     return {
         plugins: [
             vue(),
+            ViteComponents({
+                customComponentResolvers: [AntDesignVueResolver()],
+            }),
             virtualHtml({
                 tplUrl: getFullUrl('index.html'),
                 twoUrl: 'tpl',
-                index: 'popupView',
+                index: 'tagView',
             }),
             jsToJson(getFullUrl('src/manifest.ts')),
 

@@ -11,9 +11,16 @@
         "esModuleInterop": true,
         "lib": [
             "esnext",
-            "dom"
+            "dom",
+            "dom.iterable",
+            "scripthost"
         ],
-        "types": ["vite/client"],
+        "typeRoots": [
+            "./src/*"
+        ],
+        "types": [
+            "vite/client"
+        ],
         "baseUrl": ".",
         "paths": {
             "@/*": [

@@ -8,6 +8,7 @@
 架构概览 https://developer.chrome.com/docs/extensions/mv3/architecture-overview/
 声明权限 https://developer.chrome.com/docs/extensions/mv3/declare_permissions/
 
+> 获取配置清单 chrome.runtime.getManifest() <br>
 
 ### manifest.json 清单文件
 ```

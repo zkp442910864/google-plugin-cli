@@ -1,3 +1,4 @@
+
 export default {
     // 项目名称
     name: 'googlePlugin',
@@ -13,23 +14,39 @@ export default {
 
     // 后台脚本必须在清单中注册
     background: {
-        service_worker: 'serviceWoker.js'
+        service_worker: 'serviceWoker.js',
+        type: 'module',
     },
 
     // 添加相关功能权限
-    permissions: ['storage', 'activeTab', 'scripting', 'contextMenus'],
+    permissions: [
+        'storage',
+        'activeTab',
+        // 'scripting',
+        // 'contextMenus',
+        // '*://*/*',
+        // 'http://*/*',
+        // 'https://*/*',
+    ],
+
+    host_permissions: [
+        '*://*/*',
+        'http://*/*',
+        'https://*/*',
+    ],
 
     // 多功能框 快捷操作，地址输入nt后，调出插件，再输入想要搜索的内容
-    omnibox: {keyword: 'nt'},
+    // omnibox: {keyword: 'nt'},
 
     // 覆盖 Chrome newTab 页面 https://developer.chrome.com/docs/extensions/mv3/override/
-    chrome_url_overrides: {
-        newtab: 'tagView.html'
-    },
+    // chrome_url_overrides: {
+    //     newtab: 'tagView.html'
+    // },
 
     // 用户操作界面, 必须在清单中声明
     action: {
-        default_popup: 'popupView.html',
+        default_title: '打开采集页面',
+        // default_popup: 'popupView.html',
         // "default_icon": {
         //     "16": "/images/get_started16.png",
         //     "32": "/images/get_started32.png",
@@ -47,5 +64,14 @@ export default {
     },
 
     // 配置项页面
-    options_page: 'tagView.html'
+    // options_page: 'tagView.html',
+
+    // web_accessible_resources: [
+    //     {
+    //         resources: ['*'],
+    //         matches: [
+    //             '*.irobotbox.com',
+    //         ]
+    //     }
+    // ],
 };

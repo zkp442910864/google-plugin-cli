@@ -15,12 +15,30 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'eslint:recommended'
     ],
+    globals: {
+        chrome: true,
+        global: true,
+        IOBJ: true,
+        browser: true,
+        mergeBrowser: true
+    },
     overrides: [
         {
             files: ['*.vue', '*.nvue'],
             rules: {
                 // https://eslint.vuejs.org/rules/script-indent.html
                 indent: 'off',
+                'vue/mustache-interpolation-spacing': ['error', 'never'],
+                'vue/max-attributes-per-line': ['error', {
+                    singleline: {
+                        max: 4,
+                        allowFirstLine: true
+                    },
+                    multiline: {
+                        max: 1,
+                        allowFirstLine: false
+                    }
+                }],
                 'vue/no-multiple-template-root': 'off',
                 '@typescript-eslint/indent': 'off',
                 'vue/html-quotes': ['error', 'double'],
@@ -114,7 +132,7 @@ module.exports = {
         'no-extend-native': ['off'], // 禁止扩展native对象
         'no-throw-literal': ['off'], // 禁止抛出字面量错误 throw "error";
         'no-extra-semi': ['error'], // 禁止多余的冒号
-        'no-extra-parens': ['error'], // 禁止非必要的括号
+        'no-extra-parens': ['off'], // 禁止非必要的括号
         // "camelcase": ["off"],//强制驼峰法命名
         'no-debugger': 1, // 禁止使用debugger
         quotes: [1, 'single'], //引号类型 `` "" ''
