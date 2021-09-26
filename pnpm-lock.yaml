@@ -7,6 +7,7 @@ specifiers:
   '@types/qs': ^6.9.7
   '@typescript-eslint/eslint-plugin': ^4.30.0
   '@typescript-eslint/parser': ^4.30.0
+  '@vitejs/plugin-legacy': ^1.5.3
   '@vitejs/plugin-vue': ^1.6.0
   '@vue/compiler-sfc': ^3.2.6
   ant-design-vue: ^2.2.6
@@ -39,6 +40,7 @@ devDependencies:
   '@types/qs': 6.9.7
   '@typescript-eslint/eslint-plugin': 4.30.0_8a8a2d3eaa9257455a03c16dce5f55b3
   '@typescript-eslint/parser': 4.30.0_eslint@7.32.0+typescript@4.4.2
+  '@vitejs/plugin-legacy': 1.5.3_vite@2.5.2
   '@vitejs/plugin-vue': 1.6.0_@vue+compiler-sfc@3.2.6
   '@vue/compiler-sfc': 3.2.6
   eslint: 7.32.0
@@ -104,6 +106,11 @@ packages:
     dependencies:
       regenerator-runtime: 0.13.9
     dev: false
+
+  /@babel/standalone/7.15.7:
+    resolution: {integrity: sha512-1dPLi+eQEJE0g1GnUM0Ik2GcS5SMXivoxt6meQxQxGWEd/DCdSBRJClUVlQ25Vbqe49g1HG5Ej0ULhmsqtSMmg==}
+    engines: {node: '>=6.9.0'}
+    dev: true
 
   /@babel/types/7.15.0:
     resolution: {integrity: sha512-OBvfqnllOIdX4ojTHpwZbpvz4j3EWyjkZEdmjH0/cgsd6QOdSgU8rLSk6ard/pcW7rlmjdVSX/AWOaORR1uNOQ==}
@@ -347,6 +354,20 @@ packages:
     dependencies:
       '@typescript-eslint/types': 4.30.0
       eslint-visitor-keys: 2.1.0
+    dev: true
+
+  /@vitejs/plugin-legacy/1.5.3_vite@2.5.2:
+    resolution: {integrity: sha512-/b2x6dU+BbdW7C7KWxh9kMrVzv1JlUi1ucPQpSzWUUUVJjihbG+GRlpqcvfQ0p/TnAKl2d/VecbTLByVJJHORg==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      vite: ^2.0.0
+    dependencies:
+      '@babel/standalone': 7.15.7
+      core-js: 3.18.0
+      magic-string: 0.25.7
+      regenerator-runtime: 0.13.9
+      systemjs: 6.10.3
+      vite: 2.5.2
     dev: true
 
   /@vitejs/plugin-vue/1.6.0_@vue+compiler-sfc@3.2.6:
@@ -724,6 +745,11 @@ packages:
     resolution: {integrity: sha512-XkbXqhcXeMHPRk2ItS+zQYliAMilea2euoMsnpRRdDad6b2VY6CQQcwz1K8AnWesfw4p165RzY0bTnr3UrbYiA==}
     requiresBuild: true
     dev: false
+
+  /core-js/3.18.0:
+    resolution: {integrity: sha512-WJeQqq6jOYgVgg4NrXKL0KLQhi0CT4ZOCvFL+3CQ5o7I6J8HkT5wd53EadMfqTDp1so/MT1J+w2ujhWcCJtN7w==}
+    requiresBuild: true
+    dev: true
 
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -1742,7 +1768,6 @@ packages:
 
   /regenerator-runtime/0.13.9:
     resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
-    dev: false
 
   /regexpp/3.2.0:
     resolution: {integrity: sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==}
@@ -1911,6 +1936,10 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       has-flag: 4.0.0
+    dev: true
+
+  /systemjs/6.10.3:
+    resolution: {integrity: sha512-mXwfLJdaADqWg1J5+Z0bGQEdcXSe+ePPTfzffMB29aVls5cXveRl0vneSV/19t3SfuUBsAraLP8W/g5u9cmYXA==}
     dev: true
 
   /table/6.7.1:

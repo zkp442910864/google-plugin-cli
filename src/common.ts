@@ -9,5 +9,5 @@ console.log(isChrome ? '谷歌' : '火狐');
 // 挂全局
 (self as any).$ = $;
 
-(self as any).mergeBrowser = null;
-mergeBrowser = typeof browser === 'undefined' ? chrome : browser;
+// (self as any).mergeBrowser = null;
+(self as any).mergeBrowser = typeof browser === 'undefined' ? chrome : browser;

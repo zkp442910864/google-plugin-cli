@@ -2,6 +2,7 @@ import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
+// import legacy, {cspHashes} from '@vitejs/plugin-legacy';
 // import fs from 'fs';
 import virtualHtml from './config/plugins/vite-plugin-virtual-html';
 import jsToJson from './config/plugins/vite-plugins-js-to-json';
@@ -25,6 +26,7 @@ export default defineConfig((evn) => {
             clearScreen: true,
             include: [
                 'src/**/*',
+                'vite.config.ts'
             ]
         },
     };
@@ -41,6 +43,9 @@ export default defineConfig((evn) => {
                 index: 'tagView',
             }),
             jsToJson(getFullUrl('src/manifest.ts')),
+            // legacy({
+            //     targets: ['defaults', 'not IE 11'],
+            // }),
 
             // {
             //     name: 'test',
@@ -59,8 +64,10 @@ export default defineConfig((evn) => {
                     // popup页面
                     popupView: getFullUrl('popupView.html'),
 
-                    // 主线程
+                    // 后台线程
                     serviceWoker: getFullUrl('src/serviceWoker/index.ts'),
+                    // 注入脚本
+                    contentScripts: getFullUrl('src/contentScripts/index.ts'),
                     // 配置文件，没有什么效果，只是为了被监听到
                     manifest: getFullUrl('src/manifest.ts'),
                 },

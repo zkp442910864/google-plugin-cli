@@ -16,6 +16,7 @@
         "vue": "^3.2.6"
     },
     "devDependencies": {
+        "@vitejs/plugin-legacy": "^1.5.3",
         "@types/chrome": "^0.0.155",
         "@types/jquery": "^3.5.6",
         "@types/node": "^16.7.10",
