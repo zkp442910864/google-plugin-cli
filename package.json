@@ -5,6 +5,7 @@
         "dev-raw": "vite",
         "serve": "vite preview",
         "dev": "vite build --mode development",
+        "test": "vite build --mode none",
         "build": "vite build --mode production"
     },
     "dependencies": {
@@ -16,22 +17,36 @@
         "vue": "^3.2.6"
     },
     "devDependencies": {
-        "@vitejs/plugin-legacy": "^1.5.3",
+        "@babel/core": "^7.15.5",
+        "@rollup/plugin-babel": "^5.3.0",
+        "@rollup/plugin-buble": "^0.21.3",
+        "@rollup/plugin-commonjs": "^20.0.0",
+        "@rollup/plugin-data-uri": "^0.1.1",
+        "@rollup/plugin-inject": "^4.0.2",
+        "@rollup/plugin-json": "^4.1.0",
+        "@rollup/plugin-node-resolve": "^13.0.5",
+        "@rollup/plugin-typescript": "^8.2.5",
         "@types/chrome": "^0.0.155",
         "@types/jquery": "^3.5.6",
         "@types/node": "^16.7.10",
         "@types/qs": "^6.9.7",
         "@typescript-eslint/eslint-plugin": "^4.30.0",
         "@typescript-eslint/parser": "^4.30.0",
+        "@vitejs/plugin-legacy": "^1.5.3",
         "@vitejs/plugin-vue": "^1.6.0",
         "@vue/compiler-sfc": "^3.2.6",
+        "code-splitting": "^1.0.0",
+        "cross-env": "^7.0.3",
         "eslint": "^7.32.0",
         "eslint-plugin-vue": "^7.17.0",
         "fs": "^0.0.1-security",
         "path": "^0.12.7",
+        "rollup": "2.53.1",
+        "rollup-plugin-clear": "^2.0.7",
         "typescript": "^4.3.2",
         "vite": "^2.5.2",
         "vite-plugin-components": "^0.13.3",
+        "vite-plugin-importer": "^0.2.5",
         "vue-tsc": "^0.2.2"
     }
 }
