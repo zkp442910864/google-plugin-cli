@@ -16,6 +16,7 @@ import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
 // import typescript from '@rollup/plugin-typescript';
 // import fs from 'fs';
 // import {exec} from 'child_process';
+// import vitePluginImp from 'vite-plugin-imp';
 import virtualHtml from './config/plugins/vite-plugin-virtual-html';
 import jsToJson from './config/plugins/vite-plugins-js-to-json';
 import mergeSingleFile from './config/plugins/vite-plugin-merge-single-file';
@@ -36,17 +37,17 @@ export default defineConfig((evn) => {
         minify: false,
         sourcemap: true,
         brotliSize: false,
-        watch: {
-            clearScreen: true,
-            include: [
-                'src/**',
-            ]
-        },
+        // watch: {
+        //     clearScreen: true,
+        //     include: [
+        //         'src/**',
+        //     ]
+        // },
     };
 
-    if (isNone) {
-        delete devData.watch;
-    }
+    // if (isNone) {
+    //     delete devData.watch;
+    // }
 
     return {
         // css: {
@@ -55,16 +56,29 @@ export default defineConfig((evn) => {
 
         plugins: [
             vue({
-                // isProduction: false,
                 style: {
-                    // scoped: true,
-                    // isProd: true,
                     preprocessLang: 'less'
-                    // inMap: true
                 }
             }),
-            // ViteComponents({
-            //     customComponentResolvers: [AntDesignVueResolver()],
+            ViteComponents({
+                customComponentResolvers: [AntDesignVueResolver()],
+            }),
+            // vitePluginImp({
+            //     libList: [
+            //         {
+            //             libName: 'ant-design-vue',
+            //             style (name) {
+            //                 if (/popconfirm/.test(name)) {
+            //                     // support multiple style file path to import
+            //                     return [
+            //                         'ant-design-vue/es/button/style/index.css',
+            //                         'ant-design-vue/es/popover/style/index.css'
+            //                     ];
+            //                 }
+            //                 return `ant-design-vue/es/${name}/style/index.css`;
+            //             }
+            //         },
+            //     ],
             // }),
             virtualHtml({
                 tplUrl: getFullUrl('index.html'),
@@ -72,7 +86,7 @@ export default defineConfig((evn) => {
                 index: 'tagView',
             }),
             jsToJson(getFullUrl('src/manifest.ts')),
-            // mergeSingleFile(getFullUrl('vite.config.tpl.ts')),
+            mergeSingleFile(getFullUrl('vite.config.tpl.ts')),
 
             // {
             //     name: 'test',
@@ -101,7 +115,7 @@ export default defineConfig((evn) => {
                     popupView: getFullUrl('popupView.html'),
 
                     // 后台线程
-                    serviceWoker: getFullUrl('src/serviceWoker/index.ts?merge'),
+                    serviceWoker: getFullUrl('src/serviceWoker/index.ts'),
                     // 注入脚本
                     contentScripts: getFullUrl('src/contentScripts/index.ts?merge'),
                     // 配置文件，没有什么效果，只是为了被监听到

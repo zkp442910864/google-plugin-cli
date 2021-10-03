@@ -1,13 +1,14 @@
 import '@/common';
+// import './index.css';
 import {createApp} from 'vue';
 import List from './List.vue';
-console.log('contentScripts');
+// console.log('contentScripts');
 
 // chrome.runtime.getURL("images/myimage.png");
 
 mergeBrowser.runtime.onMessage.addListener((data) => {
-    console.log(createApp);
-    console.log(List);
+    // console.log(createApp);
+    // console.log(List);
     console.log(data);
     console.log(1);
 
@@ -20,6 +21,7 @@ mergeBrowser.runtime.onMessage.addListener((data) => {
     // global.createApp = self.List = List;
     try {
         createApp(List).mount(`#${divbox.id}`);
+        console.log('插入成功11');
     } catch (error) {
         console.log(error);
     }

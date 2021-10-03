@@ -2,6 +2,10 @@ import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
+// import {nodeResolve} from '@rollup/plugin-node-resolve';
+// import commonjs from '@rollup/plugin-commonjs';
+// import {babel} from '@rollup/plugin-babel';
+
 
 const getFullUrl = (...arg) => {
     // console.log(process.cwd());
@@ -24,12 +28,17 @@ export default defineConfig((evn) => {
             ViteComponents({
                 customComponentResolvers: [AntDesignVueResolver()],
             }),
+            // nodeResolve({
+            //     browser: true
+            // }),
+            // commonjs(),
+            // babel({babelHelpers: 'bundled'}),
+            // typescript(),
         ],
         build: {
             ...(isDev || isNone) ? devData : {},
             // 不清空dist
             emptyOutDir: false,
-            cssCodeSplit: false,
 
             rollupOptions: {
                 // external: ['vue'],
@@ -41,10 +50,19 @@ export default defineConfig((evn) => {
                     {
                         assetFileNames: '[name].[ext]',
                         // 公共产物的 命名规则
-                        chunkFileNames: 'chunk-[name].js',
+                        // chunkFileNames: 'chunk-[name].js',
                         // 入口文件的 命名规则
                         entryFileNames: '[name].js',
-                        manualChunks: {},
+                        manualChunks: undefined,
+                        // inlineDynamicImports: true,
+                        // format: 'umd'
+                        plugins: [
+                            // nodeResolve({
+                            //     browser: true
+                            // }),
+                            // commonjs(),
+                            // babel({babelHelpers: 'bundled'}),
+                        ]
                     },
                 ]
             }

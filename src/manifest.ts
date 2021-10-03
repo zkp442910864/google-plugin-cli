@@ -106,6 +106,7 @@ export default {
         {
             matches: ['<all_urls>'],
             js: ['contentScripts.js'],
+            css: ['contentScripts.css'],
             all_frames: true,
             run_at: 'document_end'
         }
