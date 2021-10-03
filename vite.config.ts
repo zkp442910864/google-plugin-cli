@@ -49,8 +49,20 @@ export default defineConfig((evn) => {
     }
 
     return {
+        // css: {
+        //     modules: false
+        // },
+
         plugins: [
-            vue(),
+            vue({
+                // isProduction: false,
+                style: {
+                    // scoped: true,
+                    // isProd: true,
+                    preprocessLang: 'less'
+                    // inMap: true
+                }
+            }),
             // ViteComponents({
             //     customComponentResolvers: [AntDesignVueResolver()],
             // }),
@@ -60,7 +72,7 @@ export default defineConfig((evn) => {
                 index: 'tagView',
             }),
             jsToJson(getFullUrl('src/manifest.ts')),
-            mergeSingleFile(getFullUrl('vite.config.tpl.ts')),
+            // mergeSingleFile(getFullUrl('vite.config.tpl.ts')),
 
             // {
             //     name: 'test',
@@ -77,7 +89,7 @@ export default defineConfig((evn) => {
         build: {
             ...(isDev || isNone) ? devData : {},
 
-            cssCodeSplit: false,
+            // cssCodeSplit: true,
 
             // target: 'chrome',
             rollupOptions: {
@@ -104,6 +116,10 @@ export default defineConfig((evn) => {
                         chunkFileNames: 'chunk-[name].js',
                         // 入口文件的 命名规则
                         entryFileNames: '[name].js',
+                        // inlineDynamicImports: true,
+                        // globals: {
+                        //     vue: 'Vue'
+                        // }
                     },
                 ]
             }
