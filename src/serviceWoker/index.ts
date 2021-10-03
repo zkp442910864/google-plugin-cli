@@ -25,6 +25,35 @@ mergeBrowser.runtime.onInstalled.addListener(() => {
     console.log('初始化');
 });
 
+
+// 监听 tabs
+const addTabsListener = () => {
+
+    const sendMessage = (tabId: number) => {
+        mergeBrowser.tabs.sendMessage(tabId, '打开页面就发送', (result) => {
+            console.log('发送结果', result);
+        });
+    };
+
+    const handle = async (tabId?: number) => {
+        if (!tabId) return;
+
+        const tab = await mergeBrowser.tabs.get(tabId);
+        sendMessage(tabId);
+        console.log(tab);
+    };
+
+
+    mergeBrowser.tabs.onActivated.addListener((activeInfo) => {
+        handle(activeInfo.tabId);
+    });
+
+    mergeBrowser.tabs.onUpdated.addListener((tabId) => {
+        // handle(tabId);
+    });
+};
+addTabsListener();
+
 // 定时器
 // const alarms = () => {
 //     const create = () => {

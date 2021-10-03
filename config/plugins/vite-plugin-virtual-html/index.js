@@ -1,4 +1,4 @@
-import {send, normalizePath} from 'vite'
+import {send, normalizePath} from 'vite';
 import fs from 'fs';
 
 /**
@@ -25,7 +25,7 @@ export default function ({tplUrl, twoUrl, index}) {
         // console.log(html);
 
         return html;
-    }
+    };
 
     return {
         name: 'vite-plugin-virtual-html',
@@ -46,9 +46,9 @@ export default function ({tplUrl, twoUrl, index}) {
                         const html = getHtml(tplUrl, [twoUrl, after], isLine, index);
                         send(req, res, html, 'html');
                     } else {
-                        next()
+                        next();
                     }
-                })
+                });
             }
         },
         resolveId (id) {
@@ -60,7 +60,7 @@ export default function ({tplUrl, twoUrl, index}) {
         },
         load (id) {
             if (command === 'build' && ~id.indexOf('.html')) {
-                const after = id.match('(\|/)([a-zA-Z]+).html')[2];
+                const after = id.match('/([a-zA-Z]+).html')[1];
 
                 return getHtml(tplUrl, [twoUrl, after]);
             }
@@ -68,5 +68,5 @@ export default function ({tplUrl, twoUrl, index}) {
         // generateBundle (output, build) {
         //     console.log(1)
         // }
-    }
+    };
 }

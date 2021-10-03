@@ -1,22 +1,36 @@
-import {defineConfig} from 'vite';
+import {defineConfig, normalizePath} from 'vite';
+// import {rollup} from 'rollup';
+// import loadConfigFile from 'rollup/dist/loadConfigFile';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
+// import {babel} from '@rollup/plugin-babel';
+// import commonjs from '@rollup/plugin-commonjs';
+// import buble from '@rollup/plugin-buble';
 // import legacy, {cspHashes} from '@vitejs/plugin-legacy';
+// import dataUri from '@rollup/plugin-data-uri';
+// import inject from '@rollup/plugin-inject';
+// import usePluginImport from 'vite-plugin-importer';
+// import {nodeResolve} from '@rollup/plugin-node-resolve';
+// import json from '@rollup/plugin-json';
+// import typescript from '@rollup/plugin-typescript';
 // import fs from 'fs';
+// import {exec} from 'child_process';
 import virtualHtml from './config/plugins/vite-plugin-virtual-html';
 import jsToJson from './config/plugins/vite-plugins-js-to-json';
+import mergeSingleFile from './config/plugins/vite-plugin-merge-single-file';
 // console.log(fs);
 
 const getFullUrl = (...arg) => {
-    return path.resolve(__dirname, ...arg);
+    return path.resolve(__dirname, './', ...arg);
 };
 
 
 // https://vitejs.dev/config/
 export default defineConfig((evn) => {
-    // console.log(1, evn.mode);
+    // console.log(1, evn);
     const isDev = evn.mode === 'development';
+    const isNone = evn.mode === 'none';
 
     const devData = {
         minify: false,
@@ -25,27 +39,28 @@ export default defineConfig((evn) => {
         watch: {
             clearScreen: true,
             include: [
-                'src/**/*',
-                'vite.config.ts'
+                'src/**',
             ]
         },
     };
 
+    if (isNone) {
+        delete devData.watch;
+    }
+
     return {
         plugins: [
             vue(),
-            ViteComponents({
-                customComponentResolvers: [AntDesignVueResolver()],
-            }),
+            // ViteComponents({
+            //     customComponentResolvers: [AntDesignVueResolver()],
+            // }),
             virtualHtml({
                 tplUrl: getFullUrl('index.html'),
                 twoUrl: 'tpl',
                 index: 'tagView',
             }),
             jsToJson(getFullUrl('src/manifest.ts')),
-            // legacy({
-            //     targets: ['defaults', 'not IE 11'],
-            // }),
+            mergeSingleFile(getFullUrl('vite.config.tpl.ts')),
 
             // {
             //     name: 'test',
@@ -54,10 +69,19 @@ export default defineConfig((evn) => {
             //     }
             // }
         ],
+        // css: {
+        //     modules: {
+        //         scopeBehaviour: 'local'
+        //     }
+        // },
         build: {
-            ...isDev ? devData : {},
+            ...(isDev || isNone) ? devData : {},
 
+            cssCodeSplit: false,
+
+            // target: 'chrome',
             rollupOptions: {
+                // external: ['vue'],
                 input: {
                     // tag页面
                     tagView: getFullUrl('tagView.html'),
@@ -65,18 +89,23 @@ export default defineConfig((evn) => {
                     popupView: getFullUrl('popupView.html'),
 
                     // 后台线程
-                    serviceWoker: getFullUrl('src/serviceWoker/index.ts'),
+                    serviceWoker: getFullUrl('src/serviceWoker/index.ts?merge'),
                     // 注入脚本
-                    contentScripts: getFullUrl('src/contentScripts/index.ts'),
+                    contentScripts: getFullUrl('src/contentScripts/index.ts?merge'),
                     // 配置文件，没有什么效果，只是为了被监听到
                     manifest: getFullUrl('src/manifest.ts'),
                 },
+                // treeshake: false,
                 // 不要hash了，平铺出来
-                output: {
-                    assetFileNames: '[name].[ext]',
-                    chunkFileNames: '[name].js',
-                    entryFileNames: '[name].js',
-                }
+                output: [
+                    {
+                        assetFileNames: '[name].[ext]',
+                        // 公共产物的 命名规则
+                        chunkFileNames: 'chunk-[name].js',
+                        // 入口文件的 命名规则
+                        entryFileNames: '[name].js',
+                    },
+                ]
             }
         },
         resolve: {

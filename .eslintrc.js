@@ -80,6 +80,7 @@ module.exports = {
         '@typescript-eslint/indent': ['error', 4, { // script标签缩进设置
             // "BaseIndent": 1,
             SwitchCase: 1,
+            ignoredNodes: ['TemplateLiteral'],
             // "MemberExpression": 1,
             // "ImportDeclaration": 1,
             // "ObjectExpression": 1,
@@ -107,7 +108,8 @@ module.exports = {
         // "no-alert": "error",//禁止使用alert confirm prompt
         // "no-tabs": ["error", {allowIndentationTabs: true}],
         // "indent": ["error", "tab"],//缩进风格
-        indent: ['error', 4, {SwitchCase: 1}], // 缩进风格
+        // indent: ['error', 4, {SwitchCase: 1, ignoredNodes: ['TemplateLiteral']}], // 缩进风格
+        indent: ['off'], // 缩进风格
         semi: [2, 'always'], // 语句强制分号结尾
         'comma-dangle': ['error', 'only-multiline'], // 对象字面量项尾不能有逗号
         'no-unused-expressions': ['error', {
