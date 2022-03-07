@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 
 declare module '*.vue' {
     import {DefineComponent} from 'vue';
@@ -7,17 +8,12 @@ declare module '*.vue' {
     export default component;
 }
 
+declare module 'chrome.ts' {
+    import '@types/chrome';
+    // export default chrome;
+}
+
 declare interface IOBJ {
     [key: string]: any;
 }
 
-// declare let chrome: typeof import('@types/chrome');
-
-declare let browser: typeof chrome;
-
-/**
- * chrome 和 Firefox
- *
- * 合并后的浏览器api
- */
-declare let mergeBrowser: typeof chrome;

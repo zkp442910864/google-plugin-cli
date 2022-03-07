@@ -16,11 +16,12 @@ module.exports = {
         'eslint:recommended'
     ],
     globals: {
-        chrome: true,
+        // chrome: true,
         global: true,
         IOBJ: true,
-        browser: true,
-        mergeBrowser: true
+        // self: true,
+        // browser: true,
+        // mergeBrowser: true
     },
     overrides: [
         {

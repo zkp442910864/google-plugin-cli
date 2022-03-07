@@ -1,4 +1,4 @@
-// import {test} from '@/utils';
+import {chrome} from '@/utils';
 /**
  * TODO:
  * 浏览器不支持 serviceWorker 的时候，建议写两个版本的 serviceWorker(es5, es6)
@@ -21,16 +21,15 @@
 
 import '@/common';
 
-mergeBrowser.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener(() => {
     console.log('初始化');
 });
-
 
 // 监听 tabs
 const addTabsListener = () => {
 
     const sendMessage = (tabId: number) => {
-        mergeBrowser.tabs.sendMessage(tabId, '打开页面就发送', (result) => {
+        chrome.tabs.sendMessage(tabId, '打开页面就发送', (result) => {
             console.log('发送结果', result);
         });
     };
@@ -38,17 +37,17 @@ const addTabsListener = () => {
     const handle = async (tabId?: number) => {
         if (!tabId) return;
 
-        const tab = await mergeBrowser.tabs.get(tabId);
+        const tab = await chrome.tabs.get(tabId);
         sendMessage(tabId);
         console.log(tab);
     };
 
 
-    mergeBrowser.tabs.onActivated.addListener((activeInfo) => {
+    chrome.tabs.onActivated.addListener((activeInfo) => {
         handle(activeInfo.tabId);
     });
 
-    mergeBrowser.tabs.onUpdated.addListener((tabId) => {
+    chrome.tabs.onUpdated.addListener((tabId) => {
         // handle(tabId);
     });
 };
@@ -57,13 +56,13 @@ addTabsListener();
 // 定时器
 // const alarms = () => {
 //     const create = () => {
-//         mergeBrowser.alarms.create({
+//         chrome.alarms.create({
 //             when: Date.now() + 1000,
 //         });
 //     };
 //     create();
 //     // 监听触发
-//     mergeBrowser.alarms.onAlarm.addListener((alarm) => {
+//     chrome.alarms.onAlarm.addListener((alarm) => {
 //         create();
 //         console.log(123, alarm);
 //     });
@@ -78,12 +77,12 @@ addTabsListener();
 // 增加右上角菜单点击效果
 // const addActionClickEvent = () => {
 //     // const url = chrome.runtime.getURL('tagView.html');
-//     mergeBrowser.action.onClicked.addListener(async () => {
-//         const [tab] = await mergeBrowser.tabs.query({url: 'chrome-extension://*/tagView.html'});
+//     chrome.action.onClicked.addListener(async () => {
+//         const [tab] = await chrome.tabs.query({url: 'chrome-extension://*/tagView.html'});
 //         if (tab && tab.id) {
-//             mergeBrowser.tabs.update(tab.id, {selected: true});
+//             chrome.tabs.update(tab.id, {selected: true});
 //         } else {
-//             mergeBrowser.tabs.create({url: 'tagView.html'});
+//             chrome.tabs.create({url: 'tagView.html'});
 //         }
 //     });
 // };
