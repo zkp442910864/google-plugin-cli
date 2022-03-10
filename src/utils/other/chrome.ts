@@ -6,8 +6,8 @@
  * 合并后的浏览器api
  */
 const g = self as IOBJ;
-const isChrome = typeof g.browser === 'undefined';
-const isFirefox = !(typeof g.browser === 'undefined');
+export const isChrome = typeof g.browser === 'undefined';
+export const isFirefox = !(typeof g.browser === 'undefined');
 
 console.log(isChrome ? '谷歌' : '火狐');
 
