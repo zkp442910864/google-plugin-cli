@@ -1,8 +1,9 @@
-import '@/common';
+
 import {createApp} from 'vue';
 // import {Button, Alert, Form, Input, DatePicker, ConfigProvider, Select} from 'ant-design-vue';
 // import zhCN from 'ant-design-vue/es/locale/zh_CN';
 // import moment from 'moment';
+import '@/assets/style/common.css';
 import App from './App.vue';
 
 import 'moment/dist/locale/zh-cn';

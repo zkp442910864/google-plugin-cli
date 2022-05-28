@@ -1,4 +1,4 @@
-import '@/common';
+
 // import './index.css';
 import {createApp} from 'vue';
 import {chrome} from '@/utils';
@@ -6,6 +6,10 @@ import List from './List.vue';
 // console.log('contentScripts');
 
 // chrome.runtime.getURL("images/myimage.png");
+// const dom = document.createElement('div');
+// dom.id = 'eee';
+// document.body.appendChild(dom);
+// createApp(List).mount('#eee');
 
 chrome.runtime.onMessage.addListener((data) => {
     // console.log(createApp);

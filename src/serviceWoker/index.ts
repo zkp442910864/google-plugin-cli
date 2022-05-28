@@ -19,8 +19,6 @@ import {chrome} from '@/utils';
     }
  */
 
-import '@/common';
-
 chrome.runtime.onInstalled.addListener(() => {
     console.log('初始化');
 });
