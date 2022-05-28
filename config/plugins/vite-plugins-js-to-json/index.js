@@ -1,4 +1,5 @@
 
+import * as ts from 'typescript';
 import fs from 'fs';
 
 /**
@@ -9,16 +10,27 @@ import fs from 'fs';
 export default function (fileUrl) {
     return {
         name: 'vite-plugins-js-to-json',
-        generateBundle () {
-            const content = fs.readFileSync(fileUrl).toString();
-            const json = content.replace('export default', '').trim();
+        async generateBundle () {
 
-            const jsonData = new Function(`return ${json}`)();
+
+            const content = fs.readFileSync(fileUrl).toString();
+
+            // ts 转 js
+            const {outputText} = ts.transpileModule(content, {
+                compilerOptions: {
+                    strict: false,
+                    module: ts.ModuleKind.CommonJS,
+                    target: ts.ScriptTarget.ES2015,
+                }
+            });
+
+            const fn = new Function(`var exports={};${outputText}return exports`);
+            const exportsData = fn();
 
             this.emitFile({
                 type: 'asset',
                 fileName: 'manifest.json',
-                source: JSON.stringify(jsonData, null, 4)
+                source: JSON.stringify(exportsData.default, null, 4)
             });
         }
     };
