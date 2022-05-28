@@ -27,6 +27,7 @@ const getFullUrl = (...arg) => {
 };
 
 // 获取 manifest 文件
+// const manifestUrl = getFullUrl('src/manifest.ts');
 const manifestUrl = getFullUrl('src/manifest2.ts');
 
 // https://vitejs.dev/config/

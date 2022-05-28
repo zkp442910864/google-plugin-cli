@@ -1,5 +1,35 @@
 # Vue 3 + Typescript + Vite
 
+- [vitesse-webext 插件脚手架](https://github.com/zkp442910864/vitesse-webext/tree/main/src)
+- [webextension-polyfill 兼容](https://github.com/mozilla/webextension-polyfill/)
+- [crx 打包库](https://www.npmjs.com/package/crx)
+- [crx3 打包库](https://www.npmjs.com/package/crx3)
+- [web-ext 调试/打包](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/#commands)
+- [firefox 插件开发文档](https://extensionworkshop.com/documentation/develop/manifest-v3-migration-guide/s)
+- [chrome 插件开发文档](https://developer.chrome.com/docs/extensions/mv3/intro/)
+- [ts compiler api](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API)
+
+### 命令
+```bash
+    # 调试 chrome
+    npm run dev:chrome
+
+    # 调试 firefox
+    npm run dev:firefox
+
+    # 打包
+    npm run build
+```
+
+### 注意点
+#### vite.config.ts 页面，js都在这里面进行配置
+- 添加文件 build.rollupOptions.input
+    - html: {tagView: getFullUrl('tagView.html')}
+        - 需要创建对应的文件 src/tagView/main.ts
+    - js: {serviceWoker: getFullUrl('src/serviceWoker/index.ts?merge')}
+        - 带 ?merge 会把js生成为一个文件，比较耗时
+- vite.config.ts 切换 manifest 文件
+
 ### 修改后的脚手架，用来开发谷歌插件
 > 脚手架搭建参考 https://github.com/geeeger-pkgs/vite-multi-page-template
 
@@ -9,61 +39,6 @@
 声明权限 https://developer.chrome.com/docs/extensions/mv3/declare_permissions/
 
 > 获取配置清单 chrome.runtime.getManifest() <br>
-
-### manifest.json 清单文件
-```
-{
-    // 项目名称
-    "name": "Getting Started Example",
-
-    // 描述文本
-    "description": "Build an Extension!",
-
-    // 版本号
-    "version": "1.0",
-
-    // 清单文件版本 https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/
-    "manifest_version": 3,
-
-    // 后台脚本必须在清单中注册
-    "background": {
-        "service_worker": "background.js"
-    },
-
-    // 添加相关功能权限
-    "permissions": ["storage", "activeTab", "scripting", "contextMenus"],
-
-    // 多功能框 快捷操作，地址输入nt后，调出插件，再输入想要搜索的内容
-    "omnibox": {"keyword" : "nt"},
-
-    // 覆盖 Chrome newTab 页面 https://developer.chrome.com/docs/extensions/mv3/override/
-    "chrome_url_overrides" : {
-        "newtab": "popup.html"
-    },
-
-    // 用户操作界面, 必须在清单中声明
-    "action": {
-        "default_popup": "popup.html",
-        "default_icon": {
-            "16": "/images/get_started16.png",
-            "32": "/images/get_started32.png",
-            "48": "/images/get_started48.png",
-            "128": "/images/get_started128.png"
-        }
-    },
-
-    // 插件图标
-    "icons": {
-        "16": "/images/get_started16.png",
-        "32": "/images/get_started32.png",
-        "48": "/images/get_started48.png",
-        "128": "/images/get_started128.png"
-    },
-
-    // 配置项页面
-    "options_page": "options.html"
-}
-```
 
 
 ### 功能权限
