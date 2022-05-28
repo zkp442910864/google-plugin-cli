@@ -7,7 +7,7 @@
             src="../assets/logo.png"
         >
         <div @click="aa">
-            popupView
+            popupView tttt
         </div>
     </div>
 </template>

@@ -1,3 +1,4 @@
+import '@/common';
 import {chrome} from '@/utils';
 /**
  * TODO:

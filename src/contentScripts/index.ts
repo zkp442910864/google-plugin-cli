@@ -1,8 +1,9 @@
 
-// import './index.css';
 import {createApp} from 'vue';
 import {chrome} from '@/utils';
+import '@/common';
 import List from './List.vue';
+import './index.css';
 // console.log('contentScripts');
 
 // chrome.runtime.getURL("images/myimage.png");
