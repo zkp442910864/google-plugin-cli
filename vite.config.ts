@@ -26,6 +26,8 @@ const getFullUrl = (...arg) => {
     return path.resolve(__dirname, './', ...arg);
 };
 
+// 获取 manifest 文件
+const manifestUrl = getFullUrl('src/manifest2.ts');
 
 // https://vitejs.dev/config/
 export default defineConfig((evn) => {
@@ -85,7 +87,7 @@ export default defineConfig((evn) => {
                 twoUrl: 'tpl',
                 index: 'tagView',
             }),
-            jsToJson(getFullUrl('src/manifest.ts')),
+            jsToJson(manifestUrl),
             mergeSingleFile(getFullUrl('vite.config.tpl.ts')),
 
             // {
@@ -115,11 +117,11 @@ export default defineConfig((evn) => {
                     popupView: getFullUrl('popupView.html'),
 
                     // 后台线程
-                    serviceWoker: getFullUrl('src/serviceWoker/index.ts'),
+                    serviceWoker: getFullUrl('src/serviceWoker/index.ts?merge'),
                     // 注入脚本
                     contentScripts: getFullUrl('src/contentScripts/index.ts?merge'),
                     // 配置文件，没有什么效果，只是为了被监听到
-                    manifest: getFullUrl('src/manifest.ts'),
+                    manifest: manifestUrl,
                 },
                 // treeshake: false,
                 // 不要hash了，平铺出来
