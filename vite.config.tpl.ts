@@ -1,4 +1,4 @@
-import {defineConfig} from 'vite';
+import {BuildOptions, defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
@@ -22,6 +22,16 @@ export default defineConfig((evn) => {
         brotliSize: false,
     };
 
+    const proData: BuildOptions = {
+        minify: 'terser',
+        sourcemap: false,
+        brotliSize: false,
+        terserOptions: {
+            mangle: false,
+            compress: false
+        },
+    };
+
     return {
         plugins: [
             vue(),
@@ -36,7 +46,7 @@ export default defineConfig((evn) => {
             // typescript(),
         ],
         build: {
-            ...(isDev || isNone) ? devData : {},
+            ...(isDev || isNone) ? devData : proData,
             // 不清空dist
             emptyOutDir: false,
 

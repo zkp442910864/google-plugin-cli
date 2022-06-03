@@ -1,4 +1,4 @@
-import {defineConfig, normalizePath} from 'vite';
+import {defineConfig, normalizePath, BuildOptions} from 'vite';
 // import {rollup} from 'rollup';
 // import loadConfigFile from 'rollup/dist/loadConfigFile';
 import vue from '@vitejs/plugin-vue';
@@ -46,6 +46,16 @@ export default defineConfig((evn) => {
         //         'src/**',
         //     ]
         // },
+    };
+
+    const proData: BuildOptions = {
+        minify: 'terser',
+        sourcemap: false,
+        brotliSize: false,
+        terserOptions: {
+            mangle: false,
+            compress: false
+        },
     };
 
     // if (isNone) {
@@ -104,7 +114,7 @@ export default defineConfig((evn) => {
         //     }
         // },
         build: {
-            ...(isDev || isNone) ? devData : {},
+            ...(isDev || isNone) ? devData : proData,
 
             // cssCodeSplit: true,
 
