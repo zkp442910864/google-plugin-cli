@@ -11,7 +11,7 @@ const obj: Manifest.WebExtensionManifest = {
     description: '测试脚手架',
 
     // 版本号
-    version: '1.0',
+    version: '1.3',
 
 
     // 后台脚本必须在清单中注册
