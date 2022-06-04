@@ -20,8 +20,22 @@
     # 调试 firefox
     npm run dev:firefox
 
-    # 打包
+    # 打包所有（不包含火狐签名版本
     npm run build
+
+    # 打包火狐（签名版本
+    npm run sign:ff
+
+    # 输出web文件
+    npm run build:web
+
+    # 使用crx 和crx3 进行打包，不明白有啥区别
+    npm run build:crx3
+    npm run build:crx2
+    npm run build:zip2
+
+    # 打包火狐（未签名版本
+    npm run build:ff
 ```
 
 ### 注意点
