@@ -1,4 +1,4 @@
-import {defineConfig, normalizePath, BuildOptions} from 'vite';
+import {defineConfig, UserConfig, BuildOptions} from 'vite';
 // import {rollup} from 'rollup';
 // import loadConfigFile from 'rollup/dist/loadConfigFile';
 import vue from '@vitejs/plugin-vue';
@@ -20,44 +20,18 @@ import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
 import virtualHtml from './config/plugins/vite-plugin-virtual-html';
 import jsToJson from './config/plugins/vite-plugins-js-to-json';
 import mergeSingleFile from './config/plugins/vite-plugin-merge-single-file';
-// console.log(fs);
 
-const getFullUrl = (...arg) => {
-    return path.resolve(__dirname, './', ...arg);
-};
+import {shareConfig, getFullUrl} from './config/viteConfig/share';
+import tplConfigFn from './config/viteConfig/tpl';
 
 // 获取 manifest 文件
-// const manifestUrl = getFullUrl('src/manifest.ts');
 const manifestUrl = getFullUrl('src/manifest2.ts');
 
 // https://vitejs.dev/config/
 export default defineConfig((evn) => {
     // console.log(1, evn);
-    const isDev = evn.mode === 'development';
-    const isNone = evn.mode === 'none';
-
-    const devData = {
-        minify: false,
-        sourcemap: true,
-        brotliSize: false,
-        // watch: {
-        //     clearScreen: true,
-        //     include: [
-        //         'src/**',
-        //     ]
-        // },
-    };
-
-    const proData: BuildOptions = {
-        minify: 'terser',
-        sourcemap: false,
-        brotliSize: false,
-        terserOptions: {
-            mangle: false,
-            compress: false
-        },
-    };
-
+    const {isDev, isNone, devData, proData, alias} = shareConfig(evn);
+    const tplConfig = tplConfigFn(evn) as UserConfig;
     // if (isNone) {
     //     delete devData.watch;
     // }
@@ -99,7 +73,8 @@ export default defineConfig((evn) => {
                 index: 'tagView',
             }),
             jsToJson(manifestUrl),
-            mergeSingleFile(getFullUrl('vite.config.tpl.ts')),
+            // mergeSingleFile(getFullUrl('vite.config.tpl.ts')),
+            mergeSingleFile(tplConfig),
 
             // {
             //     name: 'test',
@@ -152,9 +127,7 @@ export default defineConfig((evn) => {
             }
         },
         resolve: {
-            alias: {
-                '@': getFullUrl('src'),
-            }
+            alias,
         }
     };
 });

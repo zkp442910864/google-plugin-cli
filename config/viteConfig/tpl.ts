@@ -1,38 +1,16 @@
-import {BuildOptions, defineConfig} from 'vite';
+import {BuildOptions, defineConfig, UserConfigFn} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
-// import {nodeResolve} from '@rollup/plugin-node-resolve';
-// import commonjs from '@rollup/plugin-commonjs';
-// import {babel} from '@rollup/plugin-babel';
 
+import {shareConfig} from './share';
 
-const getFullUrl = (...arg) => {
-    // console.log(process.cwd());
-    return path.resolve(process.cwd(), './', ...arg);
-};
 
 export default defineConfig((evn) => {
-    const isDev = evn.mode === 'development';
-    const isNone = evn.mode === 'none';
-
-    const devData = {
-        minify: false,
-        sourcemap: true,
-        brotliSize: false,
-    };
-
-    const proData: BuildOptions = {
-        minify: 'terser',
-        sourcemap: false,
-        brotliSize: false,
-        terserOptions: {
-            mangle: false,
-            compress: false
-        },
-    };
+    const {isDev, isNone, devData, proData, alias} = shareConfig(evn);
 
     return {
+        clearScreen: false,
         plugins: [
             vue(),
             ViteComponents({
@@ -54,7 +32,7 @@ export default defineConfig((evn) => {
                 // external: ['vue'],
                 input: {
                     // contentScripts: getFullUrl('src/contentScripts/index.ts'),
-                    templateKey: 'templateUrl',
+                    // templateKey: 'templateUrl',
                 },
                 output: [
                     {
@@ -78,9 +56,7 @@ export default defineConfig((evn) => {
             }
         },
         resolve: {
-            alias: {
-                '@': getFullUrl('src'),
-            }
+            alias
         }
     };
-});
+}) as UserConfigFn;

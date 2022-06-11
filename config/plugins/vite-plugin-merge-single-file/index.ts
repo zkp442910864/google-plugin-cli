@@ -1,4 +1,4 @@
-import {PluginOption, normalizePath} from 'vite';
+import {PluginOption, normalizePath, build, UserConfig} from 'vite';
 import {exec} from 'child_process';
 import fs from 'fs';
 
@@ -7,33 +7,16 @@ import fs from 'fs';
  * 主要根据主文件上input 上的路径包含 ?merge 进行处理
  * TODO: 这个操作很耗时间
  *
- * 1.读取vite.config.ts 模板，替换input 里的key 和name
+ * 1.获取配置
  * 2.模板的 output.manualChunks 要重置下，不然node_modules 的内容会被提取出来
- * 3.然后生成一个新的vite.config.ts 到node_modules 里
- * 4.最后在执行命令 vite build -c
- * @param tplUrl 模板路径
+ * 3.然后执行 build 函数，注意属性 configFile 要置为false，不然会自动读取目录下的vite.config.ts
+ * @param tplConfig 提供个模板配置
  * @returns
  */
 
-export default function (tplUrl) {
+export default function (tplConfig: UserConfig) {
     let mode = 'serve';
-    const arrInput = [];
-
-    // 执行命令
-    const runCli = (str) => {
-        return new Promise((rel, rej) => {
-            exec(str, (err, stdout, stderr) => {
-                // console.log(stdout);
-                if (err) {
-                    console.error(err);
-                    rej(err);
-                } else {
-                    rel(stdout);
-                }
-                // console.log(err, stdout, stderr);
-            });
-        });
-    };
+    const arrInput: {name: string, url: string}[] = [];
 
     return {
         name: 'vite-plugin-merge-single-file',
@@ -53,22 +36,19 @@ export default function (tplUrl) {
                 }
             }
         },
-        generateBundle () {
-            (async () => {
-                const tplStrRaw = fs.readFileSync(tplUrl).toString();
-                const fileUrl = `${process.cwd()}/node_modules/vite.config.ts`;
+        async closeBundle () {
+            for (const item of arrInput) {
 
-                for (const item of arrInput) {
-                    let tplStr = tplStrRaw.replace('templateKey', item.name);
-                    tplStr = tplStr.replace('templateUrl', item.url);
+                tplConfig!.build!.rollupOptions!.input = {
+                    [item.name]: item.url,
+                };
 
-                    fs.writeFileSync(fileUrl, tplStr);
-                    await runCli(`vite -c ${fileUrl} build -m ${mode}`);
-                }
-
-                fs.unlink(fileUrl, () => {});
-            })();
-            // runCli('vite -c ./config/vite.config.tpl.ts build -m none');
+                await build({
+                    mode,
+                    configFile: false,
+                    ...tplConfig,
+                });
+            }
         }
     } as PluginOption;
 }
