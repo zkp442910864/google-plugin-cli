@@ -7,15 +7,16 @@ import {shareConfig} from './share';
 
 
 export default defineConfig((evn) => {
-    const {isDev, isNone, devData, proData, alias} = shareConfig(evn);
+    const {isDev, isNone, devData, proData, alias, plugins} = shareConfig(evn);
 
     return {
         clearScreen: false,
         plugins: [
-            vue(),
-            ViteComponents({
-                customComponentResolvers: [AntDesignVueResolver()],
-            }),
+            ...plugins,
+            // vue(),
+            // ViteComponents({
+            //     customComponentResolvers: [AntDesignVueResolver()],
+            // }),
             // nodeResolve({
             //     browser: true
             // }),

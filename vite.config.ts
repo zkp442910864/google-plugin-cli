@@ -30,7 +30,7 @@ const manifestUrl = getFullUrl('src/manifest2.ts');
 // https://vitejs.dev/config/
 export default defineConfig((evn) => {
     // console.log(1, evn);
-    const {isDev, isNone, devData, proData, alias} = shareConfig(evn);
+    const {isDev, isNone, devData, proData, alias, plugins} = shareConfig(evn);
     const tplConfig = tplConfigFn(evn) as UserConfig;
     // if (isNone) {
     //     delete devData.watch;
@@ -42,14 +42,15 @@ export default defineConfig((evn) => {
         // },
 
         plugins: [
-            vue({
-                style: {
-                    preprocessLang: 'less'
-                }
-            }),
-            ViteComponents({
-                customComponentResolvers: [AntDesignVueResolver()],
-            }),
+            ...plugins,
+            // vue({
+            //     style: {
+            //         preprocessLang: 'less'
+            //     }
+            // }),
+            // ViteComponents({
+            //     customComponentResolvers: [AntDesignVueResolver()],
+            // }),
             // vitePluginImp({
             //     libList: [
             //         {

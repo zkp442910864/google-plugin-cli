@@ -1,6 +1,8 @@
 import {defineConfig, normalizePath, BuildOptions, ConfigEnv} from 'vite';
+import vue from '@vitejs/plugin-vue';
+import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
+import vueJsx from '@vitejs/plugin-vue-jsx';
 import path from 'path';
-
 
 export const getFullUrl = (...arg) => {
     // process.cwd()
@@ -44,6 +46,19 @@ export const shareConfig = (evn: ConfigEnv) => {
         '@': getFullUrl('src'),
     };
 
+    // 公共使用的插件
+    const plugins = [
+        vue({
+            style: {
+                preprocessLang: 'less'
+            }
+        }),
+        ViteComponents({
+            customComponentResolvers: [AntDesignVueResolver()],
+        }),
+        vueJsx(),
+    ];
+
     return {
         devData,
         proData,
@@ -51,6 +66,7 @@ export const shareConfig = (evn: ConfigEnv) => {
         isNone,
         isPro,
         alias,
+        plugins,
     };
 
 };

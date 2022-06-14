@@ -11,6 +11,7 @@
 - [firefox 插件开发文档](https://extensionworkshop.com/documentation/develop/manifest-v3-migration-guide/s)
 - [chrome 插件开发文档](https://developer.chrome.com/docs/extensions/mv3/intro/)
 - [ts compiler api](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API)
+- [vue jsx/tsx](https://github.com/vuejs/babel-plugin-jsx/blob/dev/packages/babel-plugin-jsx/README-zh_CN.md)
 
 ### 命令
 
