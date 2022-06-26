@@ -3,10 +3,10 @@ import type {Manifest} from 'webextension-polyfill';
 
 const obj: Manifest.WebExtensionManifest = {
     // 项目名称
-    name: 'googlePlugin',
+    name: '页面翻译对比',
 
     // 描述文本
-    description: '测试脚手架',
+    description: '中英文对比',
 
     // 版本号
     version: '1.0',
@@ -24,8 +24,8 @@ const obj: Manifest.WebExtensionManifest = {
 
     // 添加相关功能权限
     permissions: [
-        'storage',
-        'activeTab',
+        // 'storage',
+        // 'activeTab',
 
 
         // v2 使用的方式
@@ -45,7 +45,7 @@ const obj: Manifest.WebExtensionManifest = {
 
         // 定时触发
         // https://developer.chrome.com/docs/extensions/reference/alarms/#method-create
-        'alarms',
+        // 'alarms',
 
 
         // 'scripting',
@@ -71,23 +71,23 @@ const obj: Manifest.WebExtensionManifest = {
     // },
 
     // 用户操作界面, 必须在清单中声明
-    action: {
-        // default_title: '打开采集页面',
-        default_popup: 'popupView.html',
-        // "default_icon": {
-        //     "16": "/images/get_started16.png",
-        //     "32": "/images/get_started32.png",
-        //     "48": "/images/get_started48.png",
-        //     "128": "/images/get_started128.png"
-        // }
-    },
+    // action: {
+    //     // default_title: '打开采集页面',
+    //     default_popup: 'popupView.html',
+    //     // "default_icon": {
+    //     //     "16": "/images/get_started16.png",
+    //     //     "32": "/images/get_started32.png",
+    //     //     "48": "/images/get_started48.png",
+    //     //     "128": "/images/get_started128.png"
+    //     // }
+    // },
 
     // 插件图标
     icons: {
-        16: 'test-16.png',
-        32: 'test-32.png',
-        48: 'test-48.png',
-        64: 'test-64.png'
+        16: 'icon-16.png',
+        32: 'icon-32.png',
+        48: 'icon-48.png',
+        64: 'icon-64.png'
     },
 
     // 配置项页面

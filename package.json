@@ -16,8 +16,8 @@
         "dev": "nodemon --watch vite.config.ts --watch vite.config.tpl.ts --watch src/**/*.* --exec \"vite build --mode development\"",
         "dev:f": "web-ext run --source-dir ./dist --target=firefox-desktop --firefox=\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\"",
         "dev:c": "web-ext run --source-dir ./dist --target=chromium",
-        "dev:chrome": "npm-run-all --parallel dev dev:c",
-        "dev:firefox": "npm-run-all --parallel dev dev:f"
+        "dev:chrome": "npm run build:web && npm-run-all --parallel dev dev:c",
+        "dev:firefox": "npm run build:web && npm-run-all --parallel dev dev:f"
     },
     "dependencies": {
         "ant-design-vue": "^2.2.6",

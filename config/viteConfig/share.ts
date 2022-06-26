@@ -1,3 +1,5 @@
+/// <reference types="../../global" />
+
 import {defineConfig, normalizePath, BuildOptions, ConfigEnv} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';

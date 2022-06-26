@@ -1,31 +1,13 @@
 import {defineConfig, UserConfig, BuildOptions} from 'vite';
-// import {rollup} from 'rollup';
-// import loadConfigFile from 'rollup/dist/loadConfigFile';
-import vue from '@vitejs/plugin-vue';
-import path from 'path';
-import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
-// import {babel} from '@rollup/plugin-babel';
-// import commonjs from '@rollup/plugin-commonjs';
-// import buble from '@rollup/plugin-buble';
-// import legacy, {cspHashes} from '@vitejs/plugin-legacy';
-// import dataUri from '@rollup/plugin-data-uri';
-// import inject from '@rollup/plugin-inject';
-// import usePluginImport from 'vite-plugin-importer';
-// import {nodeResolve} from '@rollup/plugin-node-resolve';
-// import json from '@rollup/plugin-json';
-// import typescript from '@rollup/plugin-typescript';
-// import fs from 'fs';
-// import {exec} from 'child_process';
-// import vitePluginImp from 'vite-plugin-imp';
+
 import virtualHtml from './config/plugins/vite-plugin-virtual-html';
 import jsToJson from './config/plugins/vite-plugins-js-to-json';
 import mergeSingleFile from './config/plugins/vite-plugin-merge-single-file';
-
 import {shareConfig, getFullUrl} from './config/viteConfig/share';
 import tplConfigFn from './config/viteConfig/tpl';
 
 // 获取 manifest 文件
-const manifestUrl = getFullUrl('src/manifest2.ts');
+const manifestUrl = getFullUrl('src/manifest.ts');
 
 // https://vitejs.dev/config/
 export default defineConfig((evn) => {
@@ -99,9 +81,9 @@ export default defineConfig((evn) => {
                 // external: ['vue'],
                 input: {
                     // tag页面
-                    tagView: getFullUrl('tagView.html'),
+                    // tagView: getFullUrl('tagView.html'),
                     // popup页面
-                    popupView: getFullUrl('popupView.html'),
+                    // popupView: getFullUrl('popupView.html'),
 
                     // 后台线程
                     serviceWoker: getFullUrl('src/serviceWoker/index.ts?merge'),
