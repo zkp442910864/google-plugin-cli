@@ -111,7 +111,7 @@ export const getTranslateLang = async (data: string[]) => {
     const dataArr = [];
 
     do {
-        oneTotal = 10 + parseInt(Math.random() * 11);
+        oneTotal = 10 + parseInt(`${Math.random() * 11}`);
         const newArr = data.slice(count, count + oneTotal);
         dataArr.push(newArr);
         count += oneTotal;
