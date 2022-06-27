@@ -98,7 +98,7 @@ export const googleApi = async (page: number, dataStr: string, rawData: string[]
             throw new Error('没数据');
         }
 
-        return data;
+        return data.map(ii => ii.replace(/<i(([\s\S])*?)<\/i>/g, '').replace(/<(b|\/b|a|\/a|a i=\d)>/g, ''));
     } catch (error) {
         console.error(error);
         return [...rawData];
@@ -107,12 +107,14 @@ export const googleApi = async (page: number, dataStr: string, rawData: string[]
 
 export const getTranslateLang = async (data: string[]) => {
     let count = 0;
+    let oneTotal = 10;
     const dataArr = [];
 
     do {
-        const newArr = data.slice(count, count + 10);
+        oneTotal = 10 + parseInt(Math.random() * 11);
+        const newArr = data.slice(count, count + oneTotal);
         dataArr.push(newArr);
-        count += 10;
+        count += oneTotal;
     } while (data.slice(count).length);
 
     const allResData = [];
