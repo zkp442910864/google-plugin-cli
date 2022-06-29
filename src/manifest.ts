@@ -24,15 +24,15 @@ const obj: Manifest.WebExtensionManifest = {
 
     // 添加相关功能权限
     permissions: [
-        // 'storage',
+        'storage',
         // 'activeTab',
 
 
         // v2 使用的方式
         // https://developer.chrome.com/docs/extensions/reference/webRequest/
         // 使用chrome.webRequestAPI 来观察和分析流量并拦截、阻止或修改进行中的请求。
-        // 'webRequest',
-        // 'webRequestBlocking',
+        'webRequest',
+        'webRequestBlocking',
 
         // v3 使用的方式
         // https://developer.chrome.com/docs/extensions/reference/declarativeWebRequest/
@@ -71,16 +71,16 @@ const obj: Manifest.WebExtensionManifest = {
     // },
 
     // 用户操作界面, 必须在清单中声明
-    // action: {
-    //     // default_title: '打开采集页面',
-    //     default_popup: 'popupView.html',
-    //     // "default_icon": {
-    //     //     "16": "/images/get_started16.png",
-    //     //     "32": "/images/get_started32.png",
-    //     //     "48": "/images/get_started48.png",
-    //     //     "128": "/images/get_started128.png"
-    //     // }
-    // },
+    action: {
+        // default_title: '打开采集页面',
+        default_popup: 'popupView.html',
+        // "default_icon": {
+        //     "16": "/images/get_started16.png",
+        //     "32": "/images/get_started32.png",
+        //     "48": "/images/get_started48.png",
+        //     "128": "/images/get_started128.png"
+        // }
+    },
 
     // 插件图标
     icons: {

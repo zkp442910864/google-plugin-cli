@@ -83,7 +83,7 @@ export default defineConfig((evn) => {
                     // tag页面
                     // tagView: getFullUrl('tagView.html'),
                     // popup页面
-                    // popupView: getFullUrl('popupView.html'),
+                    popupView: getFullUrl('popupView.html'),
 
                     // 后台线程
                     serviceWoker: getFullUrl('src/serviceWoker/index.ts?merge'),

@@ -1,6 +1,6 @@
 import '@/common';
 import '@/assets/style/common.css';
 import {createApp} from 'vue';
-import App from './App.vue';
+import ConfigPage from './ConfigPage';
 
-createApp(App).mount('#app');
+createApp(ConfigPage).mount('#app');
