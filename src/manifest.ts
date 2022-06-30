@@ -12,15 +12,11 @@ const obj: Manifest.WebExtensionManifest = {
     version: '1.0',
 
     // 清单文件版本 https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/
-    manifest_version: 3,
+    manifest_version: 2,
 
     // https://developer.chrome.com/docs/extensions/mv3/service_workers/
     // 后台脚本必须在清单中注册
-    background: {
-        service_worker: 'serviceWoker.js',
-        // google 版本需要91以上
-        type: 'module',
-    } as any,
+    background: {scripts: ['serviceWoker.js']},
 
     // 添加相关功能权限
     permissions: [
@@ -53,14 +49,15 @@ const obj: Manifest.WebExtensionManifest = {
         // '*://*/*',
         // 'http://*/*',
         // 'https://*/*',
-    ],
-
-    host_permissions: [
-        // '*://*/*',
-        // 'http://*/*',
-        // 'https://*/*',
         '<all_urls>'
     ],
+
+    // host_permissions: [
+    //     // '*://*/*',
+    //     // 'http://*/*',
+    //     // 'https://*/*',
+    //     '<all_urls>'
+    // ],
 
     // 多功能框 快捷操作，地址输入nt后，调出插件，再输入想要搜索的内容
     // omnibox: {keyword: 'nt'},
@@ -71,7 +68,7 @@ const obj: Manifest.WebExtensionManifest = {
     // },
 
     // 用户操作界面, 必须在清单中声明
-    action: {
+    browser_action: {
         // default_title: '打开采集页面',
         default_popup: 'popupView.html',
         // "default_icon": {
