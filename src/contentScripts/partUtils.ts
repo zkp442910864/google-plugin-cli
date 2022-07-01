@@ -43,6 +43,7 @@ export const skipRawDom = (dom: HTMLElement) => {
     const name = dom.nodeName.toLocaleLowerCase();
     const data = [
         'CODE',
+        'PRE',
     ].map(ii => ii.toLocaleLowerCase());
 
     if (data.includes(name)) {

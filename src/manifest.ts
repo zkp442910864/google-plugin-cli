@@ -1,7 +1,7 @@
 import type {Manifest} from 'webextension-polyfill';
 
 
-const obj: Manifest.WebExtensionManifest = {
+const obj: Manifest.WebExtensionManifest & {declarative_net_request: any} = {
     // 项目名称
     name: '页面翻译对比',
 
@@ -12,23 +12,20 @@ const obj: Manifest.WebExtensionManifest = {
     version: '1.0',
 
     // 清单文件版本 https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/
-    manifest_version: 2,
+    manifest_version: 3,
 
     // https://developer.chrome.com/docs/extensions/mv3/service_workers/
     // 后台脚本必须在清单中注册
-    background: {scripts: ['serviceWoker.js']},
+    background: {
+        service_worker: 'serviceWoker.js',
+        // google 版本需要91以上
+        type: 'module',
+    } as any,
 
     // 添加相关功能权限
     permissions: [
         'storage',
         // 'activeTab',
-
-
-        // v2 使用的方式
-        // https://developer.chrome.com/docs/extensions/reference/webRequest/
-        // 使用chrome.webRequestAPI 来观察和分析流量并拦截、阻止或修改进行中的请求。
-        'webRequest',
-        'webRequestBlocking',
 
         // v3 使用的方式
         // https://developer.chrome.com/docs/extensions/reference/declarativeWebRequest/
@@ -36,7 +33,10 @@ const obj: Manifest.WebExtensionManifest = {
         // 该chrome.declarativeNetRequestAPI用于阻挡或通过指定声明性规则修改网络请求。
         // 这允许扩展修改网络请求而无需拦截它们并查看其内容，从而提供更多隐私。
         // 'declarativeWebRequest',
-        // 'declarativeNetRequest',
+        'declarativeNetRequest',
+
+        // 'webRequest',
+        // 'webRequestBlocking',
 
 
         // 定时触发
@@ -49,15 +49,30 @@ const obj: Manifest.WebExtensionManifest = {
         // '*://*/*',
         // 'http://*/*',
         // 'https://*/*',
+    ],
+
+    host_permissions: [
+        // '*://*/*',
+        // 'http://*/*',
+        // 'https://*/*',
         '<all_urls>'
     ],
 
-    // host_permissions: [
-    //     // '*://*/*',
-    //     // 'http://*/*',
-    //     // 'https://*/*',
-    //     '<all_urls>'
-    // ],
+    // declarativeNetRequest 指定的静态规则
+    declarative_net_request: {
+        rule_resources: [
+            {
+                id: 'x-frame-options',
+                enabled: false,
+                path: 'declarativeRules/x-frame-options.json'
+            },
+            {
+                id: 'content-security-policy',
+                enabled: false,
+                path: 'declarativeRules/content-security-policy.json'
+            }
+        ],
+    },
 
     // 多功能框 快捷操作，地址输入nt后，调出插件，再输入想要搜索的内容
     // omnibox: {keyword: 'nt'},
@@ -68,7 +83,7 @@ const obj: Manifest.WebExtensionManifest = {
     // },
 
     // 用户操作界面, 必须在清单中声明
-    browser_action: {
+    action: {
         // default_title: '打开采集页面',
         default_popup: 'popupView.html',
         // "default_icon": {

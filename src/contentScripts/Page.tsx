@@ -8,6 +8,7 @@ const Page = defineComponent({
     setup () {
 
         const FIXED_BEFORE = `custom-zzzz-class-${Date.now()}`;
+        const PAGE_URL = `${window.location.href}${window.location.search ? '&' : '?'}__hideFlag__=1`;
         const f1 = ref<HTMLIFrameElement>();
         const f2 = ref<HTMLIFrameElement>();
 
@@ -27,24 +28,28 @@ const Page = defineComponent({
 
         // 加载和刷新dom
         const loadIframePage = async (type?: 1 | 2) => {
-            const str = await getHtmlContent();
+            // const str = await getHtmlContent();
 
             switch (type) {
                 case 1:
-                    // f1.value?.contentDocument?.write('');
-                    f1.value!.contentDocument!.documentElement.innerHTML = '';
-                    f1.value!.contentDocument!.documentElement.innerHTML = str;
-                    // f1.value?.contentDocument?.write(str);
+                    // f1.value!.contentDocument!.documentElement.innerHTML = '';
+                    // f1.value!.contentDocument!.documentElement.innerHTML = str;
+                    // f1.value?.contentWindow?.location.reload();
+                    f1.value?.setAttribute('src', '');
+                    f1.value?.setAttribute('src', PAGE_URL);
                     break;
                 case 2:
-                    // f2.value?.contentDocument?.write('');
-                    f2.value!.contentDocument!.documentElement.innerHTML = '';
-                    f2.value!.contentDocument!.documentElement.innerHTML = str;
-                    // f2.value?.contentDocument?.write(str);
+                    // f2.value!.contentDocument!.documentElement.innerHTML = '';
+                    // f2.value!.contentDocument!.documentElement.innerHTML = str;
+                    // f2.value?.contentWindow?.location.reload();
+                    f2.value?.setAttribute('src', '');
+                    f2.value?.setAttribute('src', PAGE_URL);
                     break;
                 default:
-                    f1.value?.contentDocument?.write(str);
-                    f2.value?.contentDocument?.write(str);
+                    f1.value?.setAttribute('src', PAGE_URL);
+                    f2.value?.setAttribute('src', PAGE_URL);
+                    // f1.value?.contentDocument?.write(str);
+                    // f2.value?.contentDocument?.write(str);
                     break;
             }
         };
@@ -267,9 +272,9 @@ const Page = defineComponent({
                 const obj = winToFunMap.get(win);
                 if (!obj) return;
 
-                win.removeEventListener('mousedown', obj.mousedown);
-                win.removeEventListener('mousemove', obj.mousemove);
-                win.removeEventListener('mouseup', obj.mouseup);
+                win.document.removeEventListener('mousedown', obj.mousedown);
+                win.document.removeEventListener('mousemove', obj.mousemove);
+                win.document.removeEventListener('mouseup', obj.mouseup);
             };
 
             // 获取指定 class
@@ -345,8 +350,8 @@ const Page = defineComponent({
             const createEvent = (win: Window, faceWin: Window) => {
 
                 const mousedown = () => {
-                    win.addEventListener('mousemove', mousemove);
-                    win.addEventListener('mouseup', mouseup);
+                    win.document.addEventListener('mousemove', mousemove);
+                    win.document.addEventListener('mouseup', mouseup);
                 };
 
                 const mousemove = () => {
@@ -369,11 +374,11 @@ const Page = defineComponent({
                     setTimeout(() => {
                         mousemove();
                     }, 16);
-                    win.removeEventListener('mousemove', mousemove);
-                    win.removeEventListener('mouseup', mouseup);
+                    win.document.removeEventListener('mousemove', mousemove);
+                    win.document.removeEventListener('mouseup', mouseup);
                 };
 
-                win.addEventListener('mousedown', mousedown);
+                win.document.addEventListener('mousedown', mousedown);
 
                 winToFunMap.set(win, {mousedown, mousemove, mouseup});
             };
@@ -383,7 +388,7 @@ const Page = defineComponent({
 
                 removeEvent(win1);
                 removeEvent(win2);
-
+                // debugger
                 createEvent(win1, win2);
                 createEvent(win2, win1);
             };
@@ -492,8 +497,8 @@ const Page = defineComponent({
 
                             console.time('aaa')
                             //
-                            removeDomFontNode(bodyF1);
-                            removeDomFontNode(bodyF2);
+                            // removeDomFontNode(bodyF1);
+                            // removeDomFontNode(bodyF2);
                             //
                             const allClassFlag = createDomFlag(bodyF1);
                             createDomFlag(bodyF2);
