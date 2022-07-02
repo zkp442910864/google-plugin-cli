@@ -25,46 +25,13 @@ export default defineConfig((evn) => {
 
         plugins: [
             ...plugins,
-            // vue({
-            //     style: {
-            //         preprocessLang: 'less'
-            //     }
-            // }),
-            // ViteComponents({
-            //     customComponentResolvers: [AntDesignVueResolver()],
-            // }),
-            // vitePluginImp({
-            //     libList: [
-            //         {
-            //             libName: 'ant-design-vue',
-            //             style (name) {
-            //                 if (/popconfirm/.test(name)) {
-            //                     // support multiple style file path to import
-            //                     return [
-            //                         'ant-design-vue/es/button/style/index.css',
-            //                         'ant-design-vue/es/popover/style/index.css'
-            //                     ];
-            //                 }
-            //                 return `ant-design-vue/es/${name}/style/index.css`;
-            //             }
-            //         },
-            //     ],
-            // }),
             virtualHtml({
                 tplUrl: getFullUrl('index.html'),
                 twoUrl: 'tpl',
                 index: 'tagView',
             }),
             jsToJson(manifestUrl),
-            // mergeSingleFile(getFullUrl('vite.config.tpl.ts')),
             mergeSingleFile(tplConfig),
-
-            // {
-            //     name: 'test',
-            //     generateBundle (options, bundle) {
-            //         console.log(options);
-            //     }
-            // }
         ],
         // css: {
         //     modules: {
@@ -74,9 +41,6 @@ export default defineConfig((evn) => {
         build: {
             ...(isDev || isNone) ? devData : proData,
 
-            // cssCodeSplit: true,
-
-            // target: 'chrome',
             rollupOptions: {
                 // external: ['vue'],
                 input: {
@@ -86,13 +50,12 @@ export default defineConfig((evn) => {
                     popupView: getFullUrl('popupView.html'),
 
                     // 后台线程
-                    serviceWoker: getFullUrl('src/serviceWoker/index.ts?merge'),
+                    serviceWorker: getFullUrl('src/serviceWorker/index.ts?merge'),
                     // 注入脚本
                     contentScripts: getFullUrl('src/contentScripts/index.ts?merge'),
                     // 配置文件，没有什么效果，只是为了被监听到
                     manifest: manifestUrl,
                 },
-                // treeshake: false,
                 // 不要hash了，平铺出来
                 output: [
                     {

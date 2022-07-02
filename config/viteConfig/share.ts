@@ -1,6 +1,6 @@
 /// <reference types="../../global" />
 
-import {defineConfig, normalizePath, BuildOptions, ConfigEnv} from 'vite';
+import {AliasOptions, PluginOption, BuildOptions, ConfigEnv} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
 import vueJsx from '@vitejs/plugin-vue-jsx';
@@ -20,7 +20,7 @@ export const shareConfig = (evn: ConfigEnv) => {
     const isNone = evn.mode === 'none';
 
     // 开发环境配置
-    const devData = {
+    const devData: BuildOptions = {
         minify: false,
         sourcemap: true,
         brotliSize: false,
@@ -44,12 +44,12 @@ export const shareConfig = (evn: ConfigEnv) => {
     };
 
     // 映射
-    const alias = {
+    const alias: AliasOptions = {
         '@': getFullUrl('src'),
     };
 
     // 公共使用的插件
-    const plugins = [
+    const plugins: PluginOption = [
         vue({
             style: {
                 preprocessLang: 'less'

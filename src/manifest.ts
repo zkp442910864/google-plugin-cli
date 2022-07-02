@@ -17,7 +17,7 @@ const obj: Manifest.WebExtensionManifest & {declarative_net_request: any} = {
     // https://developer.chrome.com/docs/extensions/mv3/service_workers/
     // 后台脚本必须在清单中注册
     background: {
-        service_worker: 'serviceWoker.js',
+        service_worker: 'serviceWorker.js',
         // google 版本需要91以上
         type: 'module',
     } as any,

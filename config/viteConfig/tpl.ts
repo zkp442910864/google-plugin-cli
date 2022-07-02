@@ -1,10 +1,6 @@
 import {BuildOptions, defineConfig, UserConfigFn} from 'vite';
-import vue from '@vitejs/plugin-vue';
-import path from 'path';
-import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
 
 import {shareConfig} from './share';
-
 
 export default defineConfig((evn) => {
     const {isDev, isNone, devData, proData, alias, plugins} = shareConfig(evn);
@@ -13,16 +9,6 @@ export default defineConfig((evn) => {
         clearScreen: false,
         plugins: [
             ...plugins,
-            // vue(),
-            // ViteComponents({
-            //     customComponentResolvers: [AntDesignVueResolver()],
-            // }),
-            // nodeResolve({
-            //     browser: true
-            // }),
-            // commonjs(),
-            // babel({babelHelpers: 'bundled'}),
-            // typescript(),
         ],
         build: {
             ...(isDev || isNone) ? devData : proData,
