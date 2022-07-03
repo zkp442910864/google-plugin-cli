@@ -2,7 +2,7 @@ import {Component, ComputedOptions, createApp, MethodOptions, DefineComponent} f
 
 import {chrome} from '@/utils';
 
-export function createVueShadow (Component: DefineComponent<any, any, any, ComputedOptions, MethodOptions>, styleStr?: string | null) {
+export function createVueShadow (Component: DefineComponent<any, any, any, ComputedOptions, MethodOptions>, styleStr?: string | null, data?: Record<string, unknown>) {
     const shadowBox = document.createElement('div');
     const shadow = shadowBox.attachShadow({mode: 'open'});
 
@@ -13,7 +13,7 @@ export function createVueShadow (Component: DefineComponent<any, any, any, Compu
     shadow.appendChild(style);
     shadow.appendChild(divbox);
 
-    const app = createApp(Component);
+    const app = createApp(Component, data);
     app.mount(divbox);
     document.body.appendChild(shadowBox);
 

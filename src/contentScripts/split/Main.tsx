@@ -1,11 +1,11 @@
 import {withModifiers, defineComponent, ref} from 'vue';
 
 import Page from './Page';
-import {createVueShadow} from './partUtils';
+import {createVueShadow} from '../partUtils';
 import styles from './index.css';
 
 const Main = defineComponent({
-    setup () {
+    setup (this, props, ctx) {
         const click = () => {
             document.body.innerHTML = '';
             document.body.className = '';

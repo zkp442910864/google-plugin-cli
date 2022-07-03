@@ -52,7 +52,8 @@ export default defineConfig((evn) => {
                     // 后台线程
                     serviceWorker: getFullUrl('src/serviceWorker/index.ts?merge'),
                     // 注入脚本
-                    contentScripts: getFullUrl('src/contentScripts/index.ts?merge'),
+                    contentScripts: getFullUrl('src/contentScripts/split/index.ts?merge'),
+                    contentScriptsTranslate: getFullUrl('src/contentScripts/translate/index.ts?merge'),
                     // 配置文件，没有什么效果，只是为了被监听到
                     manifest: manifestUrl,
                 },

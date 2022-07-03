@@ -25,7 +25,7 @@ const obj: Manifest.WebExtensionManifest & {declarative_net_request: any} = {
     // 添加相关功能权限
     permissions: [
         'storage',
-        // 'activeTab',
+        'tabs',
 
         // v3 使用的方式
         // https://developer.chrome.com/docs/extensions/reference/declarativeWebRequest/
@@ -45,7 +45,7 @@ const obj: Manifest.WebExtensionManifest & {declarative_net_request: any} = {
 
 
         // 'scripting',
-        // 'contextMenus',
+        'contextMenus',
         // '*://*/*',
         // 'http://*/*',
         // 'https://*/*',
@@ -105,15 +105,6 @@ const obj: Manifest.WebExtensionManifest & {declarative_net_request: any} = {
     // 配置项页面
     // options_page: 'tagView.html',
 
-    // web_accessible_resources: [
-    //     {
-    //         resources: ['*'],
-    //         matches: [
-    //             '*.irobotbox.com',
-    //         ]
-    //     }
-    // ],
-
     // 注入脚本
     // https://developer.chrome.com/docs/extensions/mv3/content_scripts/
     content_scripts: [
@@ -123,6 +114,12 @@ const obj: Manifest.WebExtensionManifest & {declarative_net_request: any} = {
             css: ['contentScripts.css'],
             all_frames: true,
             run_at: 'document_end'
+        },
+        {
+            matches: ['<all_urls>'],
+            js: ['contentScriptsTranslate.js'],
+            all_frames: true,
+            run_at: 'document_start'
         }
     ],
     // https://developer.mozilla.org/zh-CN/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings

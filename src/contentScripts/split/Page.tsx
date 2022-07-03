@@ -1,12 +1,59 @@
-import {defineComponent, IframeHTMLAttributes, onMounted, ref} from 'vue';
+import {defineComponent, toRef, toRefs, onMounted, ref, reactive} from 'vue';
 
 import {chrome} from '@/utils';
 
-import {skipDom, sendMessage, skipRawDom} from './partUtils';
+import {skipDom, sendMessage, skipRawDom} from '../partUtils';
+
+const useLeftRight = () => {
+    const info = reactive({
+        lockStyle: {},
+        leftWidth: '' as string | number,
+        rightWidth: '' as string | number,
+    });
+
+    const mousedown = (e: MouseEvent) => {
+        info.lockStyle = {
+            pointerEvents: 'none',
+            userSelect: 'none',
+        }
+        document.addEventListener('mousemove', mousemove);
+        document.addEventListener('mouseup', mouseup);
+    }
+
+    const mousemove = (e: MouseEvent) => {
+
+        const fullWidth = window.innerWidth;
+        let leftWidth = e.screenX;
+        leftWidth = Math.max(leftWidth, 200);
+        leftWidth = Math.min(leftWidth, fullWidth - 200);
+        // console.log(leftWidth);
+        info.leftWidth = `${leftWidth / fullWidth * 100}%`;
+        info.rightWidth = `${(fullWidth - leftWidth) / fullWidth * 100}%`;
+    }
+
+    const mouseup = (e: MouseEvent) => {
+        document.removeEventListener('mousemove', mousemove);
+        document.removeEventListener('mouseup', mouseup);
+        info.lockStyle = {};
+        // setTimeout(() => {
+        // }, 2000);
+    }
+
+
+    return {
+        mousedown,
+        // mousemove,
+        // mouseup,
+        lockStyle: toRef(info, 'lockStyle'),
+        leftWidth: toRef(info, 'leftWidth'),
+        rightWidth: toRef(info, 'rightWidth'),
+    }
+}
 
 const Page = defineComponent({
     setup () {
 
+        const {mousedown, leftWidth, rightWidth, lockStyle} = useLeftRight();
         const FIXED_BEFORE = `custom-zzzz-class-${Date.now()}`;
         const PAGE_URL = `${window.location.href}${window.location.search ? '&' : '?'}__hideFlag__=1`;
         const f1 = ref<HTMLIFrameElement>();
@@ -465,10 +512,11 @@ const Page = defineComponent({
 
         return () => (
             <div class="page-content">
-                <div class="page-iframe page-iframe1">
+                <div class="page-iframe page-iframe1" style={{width: leftWidth.value, ...lockStyle.value}}>
                     <iframe ref={f1}></iframe>
                 </div>
-                <div class="page-iframe page-iframe2">
+                <div class="col-line" onMousedown={mousedown}></div>
+                <div class="page-iframe page-iframe2" style={{width: rightWidth.value, ...lockStyle.value}}>
                     <iframe ref={f2}></iframe>
                 </div>
                 <div class="fixed-btn-group">
