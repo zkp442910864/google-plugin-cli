@@ -5,5 +5,6 @@ export const storageKey = {
     CLOSE_CONTENT_SECURITY_POLICY: 'closeContentSecurityPolicy',
     CLOSE_ACTION: 'closeAction',
     CLOSE_ACTION_TRANSLATE: 'closeActionTranslate',
+    CLOSE_ACTION_TRANSLATE_PAGE: 'closeActionTranslatePage',
 };
 

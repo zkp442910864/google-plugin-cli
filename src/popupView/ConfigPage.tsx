@@ -4,7 +4,7 @@ import {defineComponent, ref} from 'vue';
 import {getStorage, setStorage} from '@/utils';
 import {storageKey} from '@/config';
 
-const {CLOSE_X_FRAME_OPTIONS, CLOSE_CONTENT_SECURITY_POLICY, CLOSE_ACTION, CLOSE_ACTION_TRANSLATE} = storageKey;
+const {CLOSE_X_FRAME_OPTIONS, CLOSE_CONTENT_SECURITY_POLICY, CLOSE_ACTION, CLOSE_ACTION_TRANSLATE, CLOSE_ACTION_TRANSLATE_PAGE} = storageKey;
 
 const ConfigPage = defineComponent({
     setup(this, props, ctx) {
@@ -13,15 +13,17 @@ const ConfigPage = defineComponent({
             closeContentSecurityPolicy: false,
             closeAction: false,
             closeActionTranslate: false,
+            closeActionTranslatePage: false,
         });
 
         const initData = async () => {
-            const obj = await getStorage([CLOSE_X_FRAME_OPTIONS, CLOSE_CONTENT_SECURITY_POLICY, CLOSE_ACTION, CLOSE_ACTION_TRANSLATE]);
+            const obj = await getStorage([CLOSE_X_FRAME_OPTIONS, CLOSE_CONTENT_SECURITY_POLICY, CLOSE_ACTION, CLOSE_ACTION_TRANSLATE, CLOSE_ACTION_TRANSLATE_PAGE]);
             state.value = {
                 closeXFrameOptions: !!obj[CLOSE_X_FRAME_OPTIONS],
                 closeContentSecurityPolicy: !!obj[CLOSE_CONTENT_SECURITY_POLICY],
                 closeAction: !!obj[CLOSE_ACTION],
                 closeActionTranslate: !!obj[CLOSE_ACTION_TRANSLATE],
+                closeActionTranslatePage: !!obj[CLOSE_ACTION_TRANSLATE_PAGE],
             }
         };
 
@@ -52,7 +54,12 @@ const ConfigPage = defineComponent({
 
                     <label >
                         <input type="checkbox" checked={state.value.closeActionTranslate} name={CLOSE_ACTION_TRANSLATE} onChange={changeData}/>
-                        开启右键翻译
+                        开启右键选择翻译
+                    </label>
+
+                    <label >
+                        <input type="checkbox" checked={state.value.closeActionTranslatePage} name={CLOSE_ACTION_TRANSLATE_PAGE} onChange={changeData}/>
+                        开启右键翻译页面
                     </label>
 
                     <label >

@@ -65,3 +65,40 @@ export const sendMessage = (data: string[]) => {
     });
 };
 
+export const translationPage = async (body: HTMLElement) => {
+
+    // 获取所有文本节点
+    const handler = (list: HTMLElement[], arr: HTMLElement[]) => {
+        list.forEach((dom) => {
+
+            if (skipDom(dom) || skipRawDom(dom)) return;
+
+            // if (isOneTextNode(dom)) {
+            //     createDomClass(dom);
+            //     return;
+            // }
+            if (dom.nodeType === 3) {
+                arr.push(dom);
+                return;
+            }
+
+            if (dom.childNodes.length) {
+                handler([...dom.childNodes] as unknown as HTMLElement[], arr);
+            }
+
+        });
+    };
+
+    const textArr: HTMLElement[] = [];
+    handler([...body.childNodes] as unknown as HTMLElement[], textArr);
+
+    // console.log(textArr);
+    const resData = await sendMessage(textArr.map(ii => ii.textContent || ''));
+
+    // console.log(resData);
+    textArr.forEach((dom, index) => {
+        const newStr = resData[index];
+        dom.textContent = newStr;
+    });
+};
+
