@@ -1,4 +1,6 @@
 /* eslint-disable no-undef */
+// 兼容文件
+// import 'webextension-polyfill';
 
 /**
  * chrome 和 Firefox

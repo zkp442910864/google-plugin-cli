@@ -8,11 +8,11 @@ import {storageKey} from '@/config';
 // import Page from './Page';
 import Main from './Main';
 import {createVueShadow} from '../partUtils';
-import styles from './index.css';
+import styles from './index.less';
 
 const {CLOSE_X_FRAME_OPTIONS, CLOSE_CONTENT_SECURITY_POLICY, CLOSE_ACTION} = storageKey;
 
-console.log(getStorage);
+// console.log(getStorage);
 
 (async () => {
     const obj = await getStorage(CLOSE_ACTION);

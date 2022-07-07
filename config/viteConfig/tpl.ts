@@ -15,6 +15,9 @@ export default defineConfig((evn) => {
             // 不清空dist
             emptyOutDir: false,
 
+            // 禁止代码加载css
+            cssCodeSplit: false,
+
             rollupOptions: {
                 // external: ['vue'],
                 input: {
@@ -30,7 +33,7 @@ export default defineConfig((evn) => {
                         entryFileNames: '[name].js',
                         manualChunks: undefined,
                         // inlineDynamicImports: true,
-                        // format: 'umd'
+                        format: 'iife',
                         plugins: [
                             // nodeResolve({
                             //     browser: true

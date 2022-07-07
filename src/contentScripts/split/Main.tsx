@@ -2,7 +2,7 @@ import {withModifiers, defineComponent, ref} from 'vue';
 
 import Page from './Page';
 import {createVueShadow} from '../partUtils';
-import styles from './index.css';
+import styles from './index.less';
 
 const Main = defineComponent({
     setup (this, props, ctx) {
