@@ -27,15 +27,19 @@ const useBgHeight = () => {
 const useDrag = () => {
 
     const left = ref();
+    const isDrag = ref();
     let start = 0;
 
     const mousedown = (e: MouseEvent) => {
         start = e.clientX - (e.target as HTMLElement)?.getBoundingClientRect().left;
         document.addEventListener('mousemove', mousemove);
         document.addEventListener('mouseup', mouseup);
+        // e.stopPropagation();
+        // e.preventDefault();
     };
 
     const mousemove = (e: MouseEvent) => {
+        isDrag.value = true;
         // const fullWidth = window.innerWidth;
         const leftWidth = document.documentElement.scrollLeft + e.clientX;
         left.value = leftWidth - start;
@@ -44,16 +48,20 @@ const useDrag = () => {
     const mouseup = (e: MouseEvent) => {
         document.removeEventListener('mousemove', mousemove);
         document.removeEventListener('mouseup', mouseup);
+
+        setTimeout(() => {
+            isDrag.value = false;
+        });
     };
 
-    return [left, mousedown, mouseup] as [typeof left, typeof mousedown, typeof mouseup];
+    return [left, isDrag, mousedown, mouseup] as [typeof left, typeof isDrag, typeof mousedown, typeof mouseup];
 };
 
 const Box = defineComponent({
     setup(this, props, ctx) {
         // console.log(ctx.attrs.data);
         const height = useBgHeight();
-        const [left, mousedown, mouseup] = useDrag();
+        const [left, isDrag, mousedown, mouseup] = useDrag();
         const list = ref<IData2[]>([]);
 
         watch<IData[]>(ctx.attrs.data as IData[], (newVal) => {
@@ -92,6 +100,10 @@ const Box = defineComponent({
                                             key={item.top}
                                             onMousedown={mousedown}
                                             onMouseup={mouseup}
+                                            onClick={() => {
+                                                if (isDrag.value) return;
+                                                console.log(123);
+                                            }}
                                         >
                                             <div class="box-win">1</div>
                                         </div>
