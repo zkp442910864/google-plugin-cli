@@ -110,17 +110,17 @@ const obj: Manifest.WebExtensionManifest & {declarative_net_request: any} = {
     content_scripts: [
         {
             matches: ['<all_urls>'],
-            js: ['contentScripts.js'],
+            js: ['contentScripts.js', 'contentScriptsTranslate.js'],
             // css: ['contentScripts.css'],
             all_frames: true,
             run_at: 'document_end'
         },
-        {
-            matches: ['<all_urls>'],
-            js: ['contentScriptsTranslate.js'],
-            all_frames: true,
-            run_at: 'document_start'
-        }
+        // {
+        //     matches: ['<all_urls>'],
+        //     js: ['contentScriptsTranslate.js'],
+        //     all_frames: true,
+        //     run_at: 'document_start'
+        // }
     ],
     // https://developer.mozilla.org/zh-CN/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings
     // 火狐专用

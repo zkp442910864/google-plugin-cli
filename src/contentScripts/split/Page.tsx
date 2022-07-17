@@ -15,10 +15,10 @@ const useLeftRight = () => {
         info.lockStyle = {
             pointerEvents: 'none',
             userSelect: 'none',
-        }
+        };
         document.addEventListener('mousemove', mousemove);
         document.addEventListener('mouseup', mouseup);
-    }
+    };
 
     const mousemove = (e: MouseEvent) => {
 
@@ -29,7 +29,7 @@ const useLeftRight = () => {
         // console.log(leftWidth);
         info.leftWidth = `${leftWidth / fullWidth * 100}%`;
         info.rightWidth = `${(fullWidth - leftWidth) / fullWidth * 100}%`;
-    }
+    };
 
     const mouseup = (e: MouseEvent) => {
         document.removeEventListener('mousemove', mousemove);
@@ -37,7 +37,7 @@ const useLeftRight = () => {
         info.lockStyle = {};
         // setTimeout(() => {
         // }, 2000);
-    }
+    };
 
 
     return {
@@ -47,8 +47,8 @@ const useLeftRight = () => {
         lockStyle: toRef(info, 'lockStyle'),
         leftWidth: toRef(info, 'leftWidth'),
         rightWidth: toRef(info, 'rightWidth'),
-    }
-}
+    };
+};
 
 const Page = defineComponent({
     setup () {
@@ -119,25 +119,25 @@ const Page = defineComponent({
                         oldStr && dom.classList.remove(oldStr);
                         dom.classList.add(flag);
                     } catch (error) {
-                        debugger
+                        debugger;
                     }
                 };
 
                 return {
                     run: fn,
                     allClassFlag: classNames,
-                }
+                };
             })();
 
             // 判断是否单一文本块
             const isOneTextNode = (dom: HTMLElement) => {
                 return dom.childNodes.length === 1 && dom.childNodes[0].nodeName === '#text';
-            }
+            };
 
             // 判断是否 text文本
             const isTextNode = (dom: HTMLElement) => {
                 return dom.nodeName === '#text';
-            }
+            };
 
             // text文本节点转节点
             const textToCustomSpan = (textDom: HTMLElement, parentDom: HTMLElement) => {
@@ -177,7 +177,7 @@ const Page = defineComponent({
             forDom([...list] as unknown as HTMLElement[], body);
 
             return createDomClass.allClassFlag;
-        }
+        };
 
         // 删除谷歌翻译，带上的多余标签
         const removeDomFontNode = (body?: HTMLElement) => {
@@ -191,7 +191,7 @@ const Page = defineComponent({
                 if ([...dom.childNodes].every(ii => ii.nodeType === 3)) {
                     // 全文本的处理
                     const text = [...dom.childNodes].map(ii => ii.textContent).join('');
-                    parentDom.replaceChild(document.createTextNode(text), dom)
+                    parentDom.replaceChild(document.createTextNode(text), dom);
                     // if (text) {
                     //     parentDom.replaceChild(document.createTextNode(text), dom)
                     // } else {
@@ -201,9 +201,9 @@ const Page = defineComponent({
                     // 非全文本的处理
                     const domF = document.createDocumentFragment();
                     [...dom.childNodes].forEach(ii => domF.appendChild(ii));
-                    parentDom.replaceChild(domF, dom)
+                    parentDom.replaceChild(domF, dom);
                 }
-            }
+            };
 
             const forDom = (list: HTMLElement[], parentDom: HTMLElement) => {
 
@@ -222,7 +222,7 @@ const Page = defineComponent({
 
             const list = body.childNodes;
             forDom([...list] as unknown as HTMLElement[], body);
-        }
+        };
 
         // 同步滚动事件
         const syncScroll = (() => {
@@ -293,7 +293,7 @@ const Page = defineComponent({
                 dom1.addEventListener('scroll', scrollEvent);
                 dom2.addEventListener('scroll', scrollEvent);
 
-            }
+            };
         })();
 
         // 同步选择文案
@@ -301,7 +301,7 @@ const Page = defineComponent({
             const winToFunMap = new WeakMap<Window, {mousedown: () => void; mousemove: () => void; mouseup: () => void}>();
             const getRange = (win: Window) => {
 
-                let newRange
+                let newRange;
 
                 try {
                     newRange = win.getSelection()!.getRangeAt(0);
@@ -311,7 +311,7 @@ const Page = defineComponent({
                 }
 
                 return newRange;
-            }
+            };
 
             // 移除事件
             const removeEvent = (win: Window) => {
@@ -330,7 +330,7 @@ const Page = defineComponent({
 
                 const classFlag = [...dom.classList].find(str => str.indexOf(FIXED_BEFORE) > -1) || '';
                 return classFlag;
-            }
+            };
 
             // 解析，
             const parse = {
@@ -366,8 +366,10 @@ const Page = defineComponent({
                     return {start, end};
                 },
                 // 解析，
+                // eslint-disable-next-line no-undef
                 dataToRange (data: ReturnType<typeof this.rangeToData>, dom: HTMLElement) {
                     const {start, end} = data;
+                    // eslint-disable-next-line prefer-const, no-sparse-arrays
                     let [startDom, startOffset, endDom, ednOffset]: Array<null | Element | number | undefined> = [, start.startOffset, , end.endOffset];
 
                     const handle = ({startClass, startType}: Omit<typeof start, 'startOffset'>) => {
@@ -383,7 +385,7 @@ const Page = defineComponent({
                         }
 
                         return childDom;
-                    }
+                    };
 
                     startDom = handle(start);
                     endDom = handle(end);
@@ -414,7 +416,7 @@ const Page = defineComponent({
                     }
                     faceRange.setStart(rangeData.startDom, rangeData.startOffset as number);
                     faceRange.setEnd(rangeData.endDom, rangeData.ednOffset as number);
-                    faceWin.getSelection()?.addRange(faceRange)
+                    faceWin.getSelection()?.addRange(faceRange);
                 };
 
                 const mouseup = () => {
@@ -462,7 +464,7 @@ const Page = defineComponent({
 
                 syncScroll(dom, faceDom);
             });
-        }
+        };
 
         // 翻译页面
         const translationPage = async (type?: 1 | 2) => {
@@ -512,7 +514,7 @@ const Page = defineComponent({
                             const windowF1 = f1.value?.contentWindow;
                             const windowF2 = f2.value?.contentWindow;
 
-                            console.time('aaa')
+                            console.time('aaa');
                             //
                             // removeDomFontNode(bodyF1);
                             // removeDomFontNode(bodyF2);
@@ -525,7 +527,7 @@ const Page = defineComponent({
                             syncScroll(documentF1, documentF2);
                             syncSelect(windowF1, windowF2);
 
-                            console.timeEnd('aaa')
+                            console.timeEnd('aaa');
                         }}
                     >
                         同步滚动/选择/高度
@@ -534,6 +536,6 @@ const Page = defineComponent({
             </div>
         );
     },
-})
+});
 
 export default Page;

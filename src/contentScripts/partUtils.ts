@@ -7,14 +7,15 @@ export function createVueShadow (Component: DefineComponent<any, any, any, Compu
     const shadow = shadowBox.attachShadow({mode: 'open'});
 
     const style = document.createElement('style');
-    const divbox = document.createElement('div');
+    const divBox = document.createElement('div');
 
     styleStr && (style.textContent = styleStr);
     shadow.appendChild(style);
-    shadow.appendChild(divbox);
+    shadow.appendChild(divBox);
 
     const app = createApp(Component, data);
-    app.mount(divbox);
+    app.mount(divBox);
+
     document.body.appendChild(shadowBox);
 
     return shadow;

@@ -1,0 +1,42 @@
+
+.box{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 100vh;
+    color: #6e7781;
+
+    .box-content{
+        width: inherit;
+        background: #f6f8fa;
+        height: 0;
+    }
+
+    .box-content-item{
+        position: absolute;
+        cursor: pointer;
+        background: #fff8c5;
+        width: inherit;
+        left: 0;
+        height: 12px;
+        box-shadow: 0px 0px 2px 0px #c1bc98;;
+        z-index: 2;
+        border-radius: 3px;
+        top: 600px;
+    }
+
+    .box-drag{
+        position: sticky;
+        bottom: 100px;
+        left: 0;
+        width: inherit;
+        height: 20px;
+        cursor: pointer;
+        background: #fff;
+        border-radius: 3px;
+        box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 35%);
+        user-select: none;
+        z-index: 3;
+    }
+}
