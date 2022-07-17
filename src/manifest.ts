@@ -99,7 +99,7 @@ const obj: Manifest.WebExtensionManifest & {declarative_net_request: any} = {
         16: 'icon-16.png',
         32: 'icon-32.png',
         48: 'icon-48.png',
-        64: 'icon-64.png'
+        64: 'icon-64.png',
     },
 
     // 配置项页面

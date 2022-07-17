@@ -1,4 +1,3 @@
-import '@/common';
 import {chrome, getStorage} from '@/utils';
 import {storageKey} from '@/config';
 

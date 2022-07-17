@@ -2,7 +2,6 @@
 import {ref} from 'vue';
 // import shadow from 'vue-shadow-dom';
 import {getStorage} from '@/utils';
-import '@/common';
 import {storageKey} from '@/config';
 
 // import Page from './Page';
