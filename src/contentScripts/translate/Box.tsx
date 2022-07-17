@@ -57,7 +57,7 @@ const Box = defineComponent({
         const list = ref<IData2[]>([]);
 
         watch<IData[]>(ctx.attrs.data as IData[], (newVal) => {
-            const rawData = newVal.slice().map(ii => toRaw(ii));
+            const rawData = newVal.slice();
             // console.log(newVal);
             // console.log(rawData);
 
@@ -85,12 +85,21 @@ const Box = defineComponent({
                             {
                                 list.value.map((item) => {
                                     return (
-                                        <div class="box-content-item" style={{top: `${item.top}px`}} key={item.top}></div>
+                                        <div
+                                            class="box-content-item"
+                                            style={{top: `${item.top}px`}}
+                                            title={`共${item.data.length}条翻译记录`}
+                                            key={item.top}
+                                            onMousedown={mousedown}
+                                            onMouseup={mouseup}
+                                        >
+                                            <div class="box-win">1</div>
+                                        </div>
                                     );
                                 })
                             }
                         </div>
-                        <div class="box-drag" title="滑动块" onMousedown={mousedown} onMouseup={mouseup} ></div>
+                        <div class="box-drag" title="滑动块" onMousedown={mousedown} onMouseup={mouseup}></div>
                     </div>
                 </>
             );

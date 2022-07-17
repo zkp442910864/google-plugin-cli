@@ -7,7 +7,7 @@ import Box from './Box';
 import {IData} from './index.d';
 import styleStr from './index.less';
 
-let data: IData[];
+let data: Ref<IData[]>;
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     // console.log(request, sender, sendResponse);
 
@@ -21,18 +21,19 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
         if (!rawText) return;
 
         if (!data) {
-            data = reactive([]);
+            data = ref([]);
             createVueShadow(Box, styleStr, {data});
         }
 
         const rangeItem = window.getSelection()?.getRangeAt(0);
         if (rangeItem) {
             const resData = await sendMessage([rawText]);
-            data.push({
+            data.value.push({
                 top: findNode(rangeItem.commonAncestorContainer).getBoundingClientRect().top + document.documentElement.scrollTop,
                 rawText,
                 text: resData[0],
             });
+            data.value = data.value.slice();
         }
     } else if (request.translatePage) {
         // 整页翻译
