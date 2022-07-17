@@ -1,10 +1,12 @@
 /// <reference types="../../global" />
 
-import {AliasOptions, PluginOption, BuildOptions, ConfigEnv} from 'vite';
+import {AliasOptions, PluginOption, BuildOptions, ConfigEnv, DepOptimizationOptions} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import ViteComponents, {AntDesignVueResolver} from 'vite-plugin-components';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import path from 'path';
+
+import vitePluginInject from '../plugins/vite-plugin-inject';
 
 export const getFullUrl = (...arg) => {
     // process.cwd()
@@ -59,7 +61,18 @@ export const shareConfig = (evn: ConfigEnv) => {
             customComponentResolvers: [AntDesignVueResolver()],
         }),
         vueJsx(),
+        vitePluginInject([
+            // 'webextension-polyfill',
+            getFullUrl('src/common.ts'),
+        ]),
     ];
+
+    // const optimizeDeps: DepOptimizationOptions  ={
+    //     include: [
+    //         // '',
+    //         getFullUrl('src/common.ts'),
+    //     ],
+    // };
 
     return {
         devData,
@@ -69,6 +82,7 @@ export const shareConfig = (evn: ConfigEnv) => {
         isPro,
         alias,
         plugins,
+        // optimizeDeps,
     };
 
 };

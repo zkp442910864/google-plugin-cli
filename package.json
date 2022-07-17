@@ -13,7 +13,7 @@
         "build:all": "npm run build:crx2 && npm run build:zip2 && npm run build:crx3 && npm run build:ff",
         "build": "md build 2>NUL & npm-run-all build:web build:all",
         "sign:ff": "web-ext sign -c=firefox.config.js",
-        "dev": "nodemon --watch vite.config.ts --watch vite.config.tpl.ts --watch src/**/*.* --exec \"vite build --mode development\"",
+        "dev": "nodemon --watch vite.config.ts --watch config/viteConfig/**/*.* --watch src/**/*.* --exec \"vite build --mode development\"",
         "dev:f": "web-ext run --source-dir ./dist --target=firefox-desktop --firefox=\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\"",
         "dev:c": "web-ext run --source-dir ./dist --target=chromium",
         "dev:chrome": "npm run build:web && npm-run-all --parallel dev dev:c",
@@ -68,6 +68,7 @@
         "vite-plugin-components": "^0.13.3",
         "vite-plugin-imp": "^2.0.9",
         "vite-plugin-importer": "^0.2.5",
+        "vite-plugin-progress": "^0.0.3",
         "vue-tsc": "^0.3.0",
         "web-ext": "^6.8.0"
     }

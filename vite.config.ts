@@ -1,4 +1,5 @@
 import {defineConfig, UserConfig, BuildOptions} from 'vite';
+import progress from 'vite-plugin-progress';
 
 import virtualHtml from './config/plugins/vite-plugin-virtual-html';
 import jsToJson from './config/plugins/vite-plugins-js-to-json';
@@ -25,6 +26,7 @@ export default defineConfig((evn) => {
 
         plugins: [
             ...plugins,
+            progress(),
             virtualHtml({
                 tplUrl: getFullUrl('index.html'),
                 twoUrl: 'tpl',
@@ -55,7 +57,7 @@ export default defineConfig((evn) => {
                     contentScripts: getFullUrl('src/contentScripts/split/index.ts?merge'),
                     contentScriptsTranslate: getFullUrl('src/contentScripts/translate/index.ts?merge'),
                     // 配置文件，没有什么效果，只是为了被监听到
-                    manifest: manifestUrl,
+                    // manifest: manifestUrl,
                 },
                 // 不要hash了，平铺出来
                 output: [
@@ -75,6 +77,6 @@ export default defineConfig((evn) => {
         },
         resolve: {
             alias,
-        }
+        },
     };
 });

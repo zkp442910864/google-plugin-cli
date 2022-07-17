@@ -36,7 +36,7 @@ export default function (tplConfig: UserConfig) {
                 }
             }
         },
-        async closeBundle () {
+        async renderStart () {
             for (const item of arrInput) {
 
                 tplConfig!.build!.rollupOptions!.input = {

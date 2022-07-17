@@ -1,6 +1,6 @@
 import {BuildOptions, defineConfig, UserConfigFn} from 'vite';
 
-import {shareConfig} from './share';
+import {shareConfig, getFullUrl} from './share';
 
 export default defineConfig((evn) => {
     const {isDev, isNone, devData, proData, alias, plugins} = shareConfig(evn);
@@ -10,6 +10,7 @@ export default defineConfig((evn) => {
         plugins: [
             ...plugins,
         ],
+        logLevel: 'warn',
         build: {
             ...(isDev || isNone) ? devData : proData,
             // 不清空dist
@@ -43,10 +44,11 @@ export default defineConfig((evn) => {
                         ]
                     },
                 ]
-            }
+            },
+
         },
         resolve: {
             alias
-        }
+        },
     };
 }) as UserConfigFn;
