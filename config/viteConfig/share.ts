@@ -25,7 +25,7 @@ export const shareConfig = (evn: ConfigEnv) => {
     const devData: BuildOptions = {
         minify: false,
         sourcemap: true,
-        brotliSize: false,
+        reportCompressedSize: false,
         // watch: {
         //     clearScreen: true,
         //     include: [
@@ -38,7 +38,7 @@ export const shareConfig = (evn: ConfigEnv) => {
     const proData: BuildOptions = {
         minify: 'terser',
         sourcemap: false,
-        brotliSize: false,
+        reportCompressedSize: false,
         terserOptions: {
             mangle: false,
             compress: false
@@ -54,8 +54,10 @@ export const shareConfig = (evn: ConfigEnv) => {
     const plugins: PluginOption = [
         vue({
             style: {
-                preprocessLang: 'less'
-            }
+                // preprocessLang: 'less'
+            },
+            template: {},
+            reactivityTransform: true,
         }),
         ViteComponents({
             customComponentResolvers: [AntDesignVueResolver()],

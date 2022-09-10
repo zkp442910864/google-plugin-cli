@@ -21,14 +21,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 // 接收右键点击信息
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-    console.log(info, tab);
+    // console.log(info, tab);
 
     if (info.menuItemId === 'translate') {
         // console.log(tab?.windowId);
         // console.log(tab?.id);
         const tabId = tab?.id;
         if (!tabId) return;
-        chrome.tabs.sendMessage(tabId, {translate: true, translateText: info.selectionText});
+        chrome.tabs.sendMessage(tabId, {translate: true, translateText: info.selectionText, info, tab});
     } else if (info.menuItemId === 'translatePage') {
         const tabId = tab?.id;
         if (!tabId) return;

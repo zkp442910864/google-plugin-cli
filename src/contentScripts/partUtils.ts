@@ -16,9 +16,11 @@ export function createVueShadow (Component: DefineComponent<any, any, any, Compu
     const app = createApp(Component, data);
     app.mount(divBox);
 
-    document.body.appendChild(shadowBox);
+    // document.body.appendChild(shadowBox);
+    // document.body.insertBefore(shadowBox, document.body.firstChild);
+    document.documentElement.insertBefore(shadowBox, document.body);
 
-    return shadow;
+    return {shadow, app};
 }
 
 // 过滤不需要添加标识的标签
