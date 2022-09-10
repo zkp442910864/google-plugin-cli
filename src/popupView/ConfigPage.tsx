@@ -24,7 +24,7 @@ const ConfigPage = defineComponent({
                 closeAction: !!obj[CLOSE_ACTION],
                 closeActionTranslate: !!obj[CLOSE_ACTION_TRANSLATE],
                 closeActionTranslatePage: !!obj[CLOSE_ACTION_TRANSLATE_PAGE],
-            }
+            };
         };
 
         const changeData = (event: Event) => {
@@ -40,7 +40,7 @@ const ConfigPage = defineComponent({
                 [name]: value
             };
             setStorage(name, value);
-        }
+        };
 
         initData();
 
