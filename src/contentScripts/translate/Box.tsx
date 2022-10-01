@@ -84,7 +84,10 @@ const Box = defineComponent<IProps>({
 
                 if (find) {
                     find.data.push(data);
-                    isLast && (find.open = true);
+                    if (isLast) {
+                        find.open = true
+                        find.isLast = true
+                    }
                     // find.data = find.data.slice();
                 } else {
                     let openStatus = isLast;
@@ -93,7 +96,7 @@ const Box = defineComponent<IProps>({
                     if (oldListMap[data.top]) {
                         openStatus = oldListMap[data.top].open;
                     }
-                    newArr.push({top: data.top, data: [data], open: openStatus});
+                    newArr.push({top: data.top, data: [data], open: openStatus, isLast});
                 }
             });
 
@@ -112,6 +115,7 @@ const Box = defineComponent<IProps>({
                                         <Item
                                             v-model:value={item.open}
                                             top={item.top}
+                                            isLast={item.isLast}
                                             data={item.data}
                                             key={item.top}
                                             left={left.value}

@@ -19,5 +19,6 @@ export interface IItemData {
     top: number;
     data: Omit<ISourceData, 'top'>[];
     open: boolean;
+    isLast: boolean;
 }
 
