@@ -75,7 +75,7 @@ const Box = defineComponent<IProps>({
             newVal.forEach((data) => {
                 const isLast = data.last;
                 // 数据追加 上下浮动50
-                const find = newArr.find(ii => data.top <= (ii.top + 50) && data.top >= (ii.top - 50));
+                const find = newArr.find(ii => data.top <= (ii.top + 150) && data.top >= (ii.top - 150));
 
                 if (find) {
                     find.data.push(data);
@@ -106,7 +106,7 @@ const Box = defineComponent<IProps>({
                                             left={left.value}
                                             isDrag={isDrag.value}
                                             onCloseAll={() => {
-                                                list.value.forEach(ii => (ii.open = false));
+                                                // list.value.forEach(ii => (ii.open = false));
                                                 list.value = list.value.slice();
                                             }}
                                             onMousedown={mousedown}

@@ -2,7 +2,7 @@
 import {defineComponent, FunctionalComponent, ref, watch} from 'vue';
 
 import {IItemData} from './index.d';
-import TitleModule from './titleModule';
+import TitleModule from './TitleModule';
 // <{data: IData2; value?: boolean; left?: number}>
 
 const Item = defineComponent<TProps>({
