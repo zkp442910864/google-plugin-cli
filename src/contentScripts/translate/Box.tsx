@@ -71,18 +71,29 @@ const Box = defineComponent<IProps>({
         watch(() => props.sourceData.value, (newVal) => {
             // const rawData = toRaw(newVal);
             const newArr: IItemData[] = [];
+            const oldListMap = list.value.reduce((map, item) => {
+                map[item.top] = item;
+                return map;
+            }, {} as Record<number, IItemData>);
 
+            // 数据合并
             newVal.forEach((data) => {
                 const isLast = data.last;
-                // 数据追加 上下浮动50
-                const find = newArr.find(ii => data.top <= (ii.top + 150) && data.top >= (ii.top - 150));
+                // 数据追加 上下浮动值 防止重叠
+                const find = newArr.find(ii => data.top <= (ii.top + 300) && data.top >= (ii.top - 300));
 
                 if (find) {
                     find.data.push(data);
                     isLast && (find.open = true);
                     // find.data = find.data.slice();
                 } else {
-                    newArr.push({top: data.top, data: [data], open: isLast});
+                    let openStatus = isLast;
+
+                    // 保留原来的打开状态
+                    if (oldListMap[data.top]) {
+                        openStatus = oldListMap[data.top].open;
+                    }
+                    newArr.push({top: data.top, data: [data], open: openStatus});
                 }
             });
 
