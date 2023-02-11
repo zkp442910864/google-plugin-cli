@@ -58,6 +58,10 @@ const Page = defineComponent({
         const PAGE_URL = `${window.location.href}${window.location.search ? '&' : '?'}__hideFlag__=1`;
         const f1 = ref<HTMLIFrameElement>();
         const f2 = ref<HTMLIFrameElement>();
+        const state = reactive({
+            f1CustomUrl: PAGE_URL,
+            f2CustomUrl: PAGE_URL,
+        });
 
         // 获取当前页面 html
         const getHtmlContent = (() => {
@@ -74,7 +78,7 @@ const Page = defineComponent({
         })();
 
         // 加载和刷新dom
-        const loadIframePage = async (type?: 1 | 2) => {
+        const loadIframePage = async (type?: 1 | 2, url?: string) => {
             // const str = await getHtmlContent();
 
             switch (type) {
@@ -83,18 +87,18 @@ const Page = defineComponent({
                     // f1.value!.contentDocument!.documentElement.innerHTML = str;
                     // f1.value?.contentWindow?.location.reload();
                     f1.value?.setAttribute('src', '');
-                    f1.value?.setAttribute('src', PAGE_URL);
+                    f1.value?.setAttribute('src', url || PAGE_URL);
                     break;
                 case 2:
                     // f2.value!.contentDocument!.documentElement.innerHTML = '';
                     // f2.value!.contentDocument!.documentElement.innerHTML = str;
                     // f2.value?.contentWindow?.location.reload();
                     f2.value?.setAttribute('src', '');
-                    f2.value?.setAttribute('src', PAGE_URL);
+                    f2.value?.setAttribute('src', url || PAGE_URL);
                     break;
                 default:
-                    f1.value?.setAttribute('src', PAGE_URL);
-                    f2.value?.setAttribute('src', PAGE_URL);
+                    f1.value?.setAttribute('src', url || PAGE_URL);
+                    f2.value?.setAttribute('src', url || PAGE_URL);
                     // f1.value?.contentDocument?.write(str);
                     // f2.value?.contentDocument?.write(str);
                     break;
@@ -475,7 +479,22 @@ const Page = defineComponent({
             rawTranslationPage(body);
         };
 
-        // 同步两边高度
+        // 更改地址
+        const updateUrl = (type: 1 | 2) => {
+            // debugger;
+            const mapUrl = {
+                1: state.f1CustomUrl,
+                2: state.f2CustomUrl,
+            };
+            try {
+                const url = mapUrl[type];
+                const data = new URL(url);
+                // console.log(`${data.href}${data.search ? '&' : '?'}__hideFlag__=1`);
+                loadIframePage(type, `${data.href}${data.search ? '&' : '?'}__hideFlag__=1`);
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
         onMounted(() => {
             loadIframePage();
@@ -484,10 +503,18 @@ const Page = defineComponent({
         return () => (
             <div class="page-content">
                 <div class="page-iframe page-iframe1" style={{width: leftWidth.value, ...lockStyle.value}}>
+                    <div class="update-url-box">
+                        <input class="update-url-input" type="text" v-model={state.f1CustomUrl}/>
+                        <button class="update-url-btn" onClick={() => updateUrl(1)}>更换</button>
+                    </div>
                     <iframe ref={f1}></iframe>
                 </div>
                 <div class="col-line" onMousedown={mousedown}></div>
                 <div class="page-iframe page-iframe2" style={{width: rightWidth.value, ...lockStyle.value}}>
+                    <div class="update-url-box">
+                        <input class="update-url-input" type="text" v-model={state.f2CustomUrl}/>
+                        <button class="update-url-btn" onClick={() => updateUrl(2)}>更换</button>
+                    </div>
                     <iframe ref={f2}></iframe>
                 </div>
                 <div class="fixed-btn-group">

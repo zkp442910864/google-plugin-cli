@@ -17,7 +17,7 @@ const {CLOSE_X_FRAME_OPTIONS, CLOSE_CONTENT_SECURITY_POLICY, CLOSE_ACTION} = sto
     const obj = await getStorage(CLOSE_ACTION);
     const url = window.location.href;
 
-    if (url.indexOf('__hideFlag__=1') > -1) return;
+    if (url.indexOf('__hideFlag__=1') > -1 || top !== window) return;
 
     if (!obj[CLOSE_ACTION]) return;
 

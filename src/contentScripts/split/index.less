@@ -14,8 +14,15 @@
     box-shadow: -1px -1px 10px 0px rgb(0 0 0 / 5%);
     font-size: 12px;
     text-align: right;
+    transform: translateX(90%);
+    background: #000;
+    transition: .1s;
 }
 
+.fixed-btn-group:hover{
+    transform: translateX(0);
+    background: #fff;
+}
 
 .page-content {
     /* width: 100vw;
@@ -56,4 +63,50 @@
 
 .col-line:hover{
     border-color: @colLineColor;
+}
+
+.update-url-box{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    overflow: hidden;
+    max-height: 0px;
+    border-top: 4px solid #ddd;
+    transition: max-height .5s;
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 10px;
+    background: #fff;
+}
+
+:where(.update-url-box):hover, :focus, .update-url-box:has(.update-url-input:focus){
+    // border-color: transparent;
+    max-height: 50px;
+    padding: 10px 0;
+    overflow: initial;
+}
+
+.update-url-input{
+    flex: 1;
+    margin-right: 10px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 4px 1px rgb(0 0 0 / 14%);
+    padding: 10px;
+    box-sizing: border-box;
+    height: 35px;
+    border-radius: 6px;
+}
+
+.update-url-btn{
+    border: none;
+    outline: none;
+    box-shadow: 0 0 4px 1px rgb(0 0 0 / 14%);
+    padding: 0 10px;
+    box-sizing: border-box;
+    height: 35px;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
 }
